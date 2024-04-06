@@ -86,6 +86,6 @@ footer {
             padding: 15px; 
         }
         #qrcode{
-            width: 95%
+            width: device-width;
         }
     }
