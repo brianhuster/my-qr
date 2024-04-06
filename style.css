@@ -13,6 +13,11 @@ h1 {
     padding: 10px 0;
     text-align: center;
 }
+.center-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 button {
     background-color: #007BFF;
     color: #fff;
