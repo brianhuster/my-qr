@@ -6,6 +6,17 @@ function hide(ID)
 {
     document.getElementById(ID).style.display = 'none';
 }
+function chooseMode(id){
+    const buttons = document.querySelectorAll('#modes button');
+    hide('qrcode'); hide('download');
+    buttons.forEach(button => {
+        button.classList.remove('active');
+        str=button.id.replace("button","form");
+        hide(str);
+    });
+    document.getElementById(id).classList.add('active');
+    display(id.replace("button","form"));
+}
 function createQR(option)
 {
     var img=document.getElementById("qrcode");
@@ -20,7 +31,6 @@ function createQR(option)
             colorLight:"#ffffff",
             correctLevel:QRCode.CorrectLevel.L
         });
-        console.log("Successful");
     }
     else if (option=="bank"){
         var ngan_hang=document.getElementById("ngan_hang").value;
