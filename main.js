@@ -66,6 +66,7 @@ async function getJSON(link){
 async function getAllBanks(){
     var response= await getJSON('https://api.vietqr.io/v2/banks');
     list=response.data;
+    list.sort((a, b) => a.shortName.localeCompare(b.shortName));
     var selectBox = document.getElementById('ngan_hang');
     for(var i = 0; i < list.length; i++){
         var option = list[i].shortName;
