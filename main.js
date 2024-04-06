@@ -8,6 +8,8 @@ function hide(ID)
 }
 function createQR(option)
 {
+    var img=document.getElementById("qrcode");
+    img.innerHTML='';
     if (option=="text"){
         var content=document.getElementById("input_text").value;
         var qrcode = new QRCode("qrcode", {
@@ -27,7 +29,6 @@ function createQR(option)
         var sotien=document.getElementById("sotien").value;
         var link=`https://img.vietqr.io/image/${ngan_hang}-${STK}-print.png?amount=${sotien}&addInfo=${ndcl}&accountName=${hovaten}`;
         console.log(link);
-        var img=document.getElementById("qrcode")
         img.innerHTML=`<img src="${link}" alt="QR code">`;
         console.log(img);
     }
