@@ -74,15 +74,18 @@ footer {
     bottom: 0;
     width: 100%;
 }
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1200px) {
         body {
-            font-size: 15px; /* Increase font size on mobile devices */
+            font-size: 15px; 
         }
         button {
-            padding: 15px 30px; /* Increase padding to make buttons bigger */
+            padding: 15px 30px; 
         }
         input, select, textarea {
-            width: 95%; /* Decrease width */
-            padding: 15px; /* Increase padding to make height higher */
+            width: 95%; 
+            padding: 15px; 
+        }
+        #qrcode{
+            width: 95%
         }
     }
