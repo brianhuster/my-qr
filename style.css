@@ -69,59 +69,15 @@ footer {
     bottom: 0;
     width: 100%;
 }
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    h1 {
-      padding: 15px 0;
+@media only screen and (max-width: 1100px) {
+        body {
+            font-size: 15px; /* Increase font size on mobile devices */
+        }
+        button {
+            padding: 15px 30px; /* Increase padding to make buttons bigger */
+        }
+        input, select, textarea {
+            width: 95%; /* Decrease width */
+            padding: 15px; /* Increase padding to make height higher */
+        }
     }
-    button {
-      padding: 8px 16px;
-      margin: 8px 2px;
-    }
-    #textQR, #bankQR {
-      padding: 15px;
-      margin: 5px;
-    }
-    #qrcode {
-      padding: 15px;
-      margin: 5px;
-    }
-  }
-  
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-    h1 {
-      padding: 20px 0;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 10px 2px;
-    }
-    #textQR, #bankQR {
-      padding: 20px;
-      margin: 10px;
-    }
-    #qrcode {
-      padding: 20px;
-      margin: 10px;
-    }
-  } 
-  
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    h1 {
-      padding: 25px 0;
-    }
-    button {
-      padding: 12px 24px;
-      margin: 12px 2px;
-    }
-    #textQR, #bankQR {
-      padding: 25px;
-      margin: 15px;
-    }
-    #qrcode {
-      padding: 25px;
-      margin: 15px;
-    }
-  }
