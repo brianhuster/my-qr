@@ -18,7 +18,7 @@ function createQR(option)
             height:480,
             colorDark:"#000000",
             colorLight:"#ffffff",
-            correctLevel:QRCode.CorrectLevel.H
+            correctLevel:QRCode.CorrectLevel.M
         });
         console.log("Successful");
     }
