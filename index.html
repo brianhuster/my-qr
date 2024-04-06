@@ -2,45 +2,43 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Tạo mã QR miễn phí</title>
 		<script type="text/javascript" src="qrcode.min.js"></script>
-        <script type="text/javascript" src="main.js"></script>
-        <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
-        <link rel="stylesheet" href="style.css">
-        <h1>Tạo mã QR miễn phí</h1>
+        	<script type="text/javascript" src="main.js"></script>
+        	<link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
+        	<link rel="stylesheet" href="style.css">
+        	<h1>Tạo mã QR miễn phí</h1>
 	</head>
-	
 	<body onload="getAllBanks()">
-	
-    <div class="center-div">
-    <button type="button" onclick="display('textQR'); hide('bankQR'); hide('qrcode'); hide('download')">Văn bản / link</button>
-    <button type="button" onclick="display('bankQR'); hide('textQR'); hide('qrcode'); hide('download')">QR ngân hàng</button>
-    </div>
-    <br><br>
-    <div id="textQR">
-        <textarea id="input_text" rows="4" type="text" placeholder="Nhập nội dung cần tạo mã QR"></textarea>
-        <button type="button" onclick="createQR('text')">Tạo mã QR</button>
-    </div>
-    <div id="bankQR" style="display:none;" onload="getAllBanks()">
-        <form>
-            <label for="ngan_hang"><span>Ngân hàng</span><span style="color:crimson">*</span></label>
-            <select id="ngan_hang"></select><br><br>
-            <label for="STK"><span>Số tài khoản</span><span style="color:crimson">*</span></label>
-            <input type="number" id="STK" placeholder="Vui lòng kiểm tra kỹ số tài khoản"><br><br>
-            <label for="hovaten">Họ và tên</label>
-            <input type="text" id="hovaten"><br><br>
-            <label for="ndck">Nội dung chuyển khoản</label>
-            <input type="text" id="ndcl"><br><br>
-            <label for="sotien">Số tiền</label>
-            <input type="number" id="sotien"><br><br>
-            <p><span style="color:crimson">*</span> là trường bắt buộc</p>
-            <button type="button" onclick="createQR('bank')">Tạo mã QR</button>
-
-        </form>
-    </div>
-	<div id="qrcode"></div>
-    <button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
+		<div class="center-div">
+    			<button type="button" onclick="display('textQR'); hide('bankQR'); hide('qrcode'); hide('download')">Văn bản / link</button>
+    			<button type="button" onclick="display('bankQR'); hide('textQR'); hide('qrcode'); hide('download')">QR ngân hàng</button>
+    		</div>
+    		<br><br>
+    		<div id="textQR">
+        		<textarea id="input_text" rows="4" type="text" placeholder="Nhập nội dung cần tạo mã QR"></textarea>
+        		<button type="button" onclick="createQR('text')">Tạo mã QR</button>
+    		</div>
+    		<div id="bankQR" style="display:none;" onload="getAllBanks()">
+        		<form>
+            			<label for="ngan_hang"><span>Ngân hàng</span><span style="color:crimson">*</span></label>
+            			<select id="ngan_hang"></select><br><br>
+            			<label for="STK"><span>Số tài khoản</span><span style="color:crimson">*</span></label>
+            			<input type="number" id="STK" placeholder="Vui lòng kiểm tra kỹ số tài khoản"><br><br>
+            			<label for="hovaten">Họ và tên</label>
+            			<input type="text" id="hovaten"><br><br>
+            			<label for="ndck">Nội dung chuyển khoản</label>
+            			<input type="text" id="ndcl"><br><br>
+            			<label for="sotien">Số tiền</label>
+           			<input type="number" id="sotien"><br><br>
+            			<p><span style="color:crimson">*</span> là trường bắt buộc</p>
+            			<button type="button" onclick="createQR('bank')">Tạo mã QR</button>
+			</form>
+    		</div>
+		<div id="qrcode"></div>
+    		<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
 	</body>
-<footer>
-    &copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/brianhuster.github.io/" style="color: white;">Source Code</a>
-</footer>
+	<footer>
+    		&copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/brianhuster.github.io/" style="color: white;">Source Code</a>
+	</footer>
 </html>
