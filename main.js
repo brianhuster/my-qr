@@ -20,6 +20,7 @@ function createQR(option)
             colorLight:"#ffffff",
             correctLevel:QRCode.CorrectLevel.H
         });
+        console.log("Successful");
     }
     else if (option=="bank"){
         var ngan_hang=document.getElementById("ngan_hang").value;
