@@ -35,7 +35,7 @@ function createQR(option)
     }
     display("qrcode");
     display("download");
-    document.getElementById('qrcode').scrollIntoView({behavior: "smooth"});
+    document.getElementById('download').scrollIntoView({behavior: "smooth"});
 }
 function downloadQR()
 {
