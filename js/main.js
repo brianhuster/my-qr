@@ -35,6 +35,7 @@ function hide(ID)
 }
 
 function chooseMode(id){
+
     const buttons = document.querySelectorAll('#modes button');
     hide('qrcode'); hide('download');
     buttons.forEach(button => {
