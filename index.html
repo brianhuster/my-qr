@@ -17,6 +17,7 @@
 		<div id="input">
 			<div id="text_form">
 				<textarea id="input_text" rows="4" type="text" placeholder="Nhập nội dung cần tạo mã QR"></textarea>
+				<button type="button" onclick="createQR('bank')">Tạo mã QR</button>
 			</div>
 			<div id="bank_form" style="display:none;" onload="getAllBanks()">
 				<form>
@@ -32,6 +33,7 @@
 					<input type="number" id="sotien"><br><br>
 					<p><span style="color:crimson">*</span> là trường bắt buộc</p>
 				</form>
+				<button type="button" onclick="createQR('bank')">Tạo mã QR</button>
 			</div>
 			<div id="wifi_form" style="display:none;">
 				<label for="ssid">Tên Wifi</label>
@@ -47,8 +49,8 @@
 				<label for="hidden">Wifi ẩn</label>
 				<input type="checkbox" id="hidden" value="true">
 				<br>
+				<button type="button" onclick="createQR('wifi')">Tạo mã QR</button>
 			</div>
-			<button type="button" onclick="createQR('wifi')">Tạo mã QR</button>
 		</div>
 		<div id="qrcode" style="display: none;"></div>
     	<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
