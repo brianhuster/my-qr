@@ -42,6 +42,19 @@ button:hover {
 button.active {
     background-color: #0056b3;
   }
+#modes button{
+  border: 2px;
+  background-color: white;
+  border-color: #04AA6D
+  color: green;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#modes button:hover, #mode button.active{
+  background-color: #04AA6D;
+  color: white;
+}
 #textQR, #bankQR {
   background-color: #fff;
   padding: 30px;
