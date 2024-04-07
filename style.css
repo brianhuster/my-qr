@@ -50,7 +50,7 @@ button:hover {
   font-size: 16px;
   cursor: pointer;
 }
-#modes button:hover, #mode button.active{
+#modes button:hover, #mode button:active{
   background-color: #04AA6D;
   color: white;
 }
