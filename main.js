@@ -37,13 +37,13 @@ function chooseMode(id){
     const buttons = document.querySelectorAll('#modes button');
     hide('qrcode'); hide('download');
     buttons.forEach(button => {
-        button.classList.remove('active');
+        button.blur();
         str=button.id.replace("button","form");
         hide(str);
     });
     display(id.replace("button","form"));
     window.location.hash = id.replace("_button","");
-    document.getElementById(id).classList.add('active');
+    document.getElementById(id).focus();
 }
 
 function createQrWithText(content){
