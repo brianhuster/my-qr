@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+9@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
   font-family: 'roboto', sans-serif;
@@ -50,7 +50,7 @@ button:hover {
   font-size: 16px;
   cursor: pointer;
 }
-#modes button:hover, #mode button:active{
+#modes button:hover, #mode button:focus{
   background-color: #04AA6D;
   color: white;
 }
