@@ -1,11 +1,29 @@
+function handleHashChange() {
+    var hash = window.location.hash.substr(1);
+    chooseMode(hash + "_button");
+}
+window.onload = function() {
+    handleHashChange();
+};
+window.addEventListener('hashchange', function() {
+    handleHashChange();
+});
+
 function display(ID)
 {
-    document.getElementById(ID).style.display = 'block';
+    var element = document.getElementById(ID);
+    if (element && element.style.display == 'none') {
+        element.style.display = 'block';
+    }
 }
 function hide(ID)
-{
-    document.getElementById(ID).style.display = 'none';
+{   
+    var element = document.getElementById(ID);
+    if (element && element.style.display !== 'none') {
+        element.style.display = 'none';
+    }
 }
+
 function chooseMode(id){
     const buttons = document.querySelectorAll('#modes button');
     hide('qrcode'); hide('download');
@@ -16,6 +34,18 @@ function chooseMode(id){
     });
     document.getElementById(id).classList.add('active');
     display(id.replace("button","form"));
+    window.location.hash = id.replace("_button","");
+}
+
+function createQrWithText(content){
+    var qrcode = new QRCode("qrcode", {
+        text: content,
+        width:480,
+        height:480,
+        colorDark:"#000000",
+        colorLight:"#ffffff",
+        correctLevel:QRCode.CorrectLevel.L
+    });
 }
 function createQR(option)
 {
@@ -23,14 +53,7 @@ function createQR(option)
     img.innerHTML='';
     if (option=="text"){
         var content=document.getElementById("input_text").value;
-        var qrcode = new QRCode("qrcode", {
-            text: content,
-            width:480,
-            height:480,
-            colorDark:"#000000",
-            colorLight:"#ffffff",
-            correctLevel:QRCode.CorrectLevel.L
-        });
+        createQrWithText(content);
     }
     else if (option=="bank"){
         var ngan_hang=document.getElementById("ngan_hang").value;
@@ -42,6 +65,14 @@ function createQR(option)
         console.log(link);
         img.innerHTML=`<img src="${link}" alt="QR code">`;
         console.log(img);
+    }
+    else if (option=="wifi"){
+        var ssid=document.getElementById("ssid").value;
+        var pass=document.getElementById("pass").value;
+        var security=document.getElementById("security").value;
+        var hidden=document.getElementById("hidden").checked;
+        var text=`WIFI:S:${ssid};T:${security};P:${pass};H:${hidden};`
+        createQrWithText(text);
     }
     display("qrcode");
     display("download");
@@ -58,6 +89,7 @@ function downloadQR()
     a.download = 'QRcode.png';
     a.click();
 }
+
 async function getJSON(link){
     try {
         const response = await fetch(link);

@@ -66,6 +66,9 @@ input[type=text]:focus, input[type=number]:focus, select:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(176, 106, 179, 0.2);
 }
+input[type=checkbox] {
+    width: auto;
+  }
 /* Chromium, Safari*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

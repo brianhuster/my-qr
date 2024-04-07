@@ -4,8 +4,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="google-site-verification" content="POTFbt_ixTZAazST0fTUJQmBxTBTiOnPImUWfvERjHo" />
 		<title>Tạo mã QR miễn phí</title>
-		<script type="text/javascript" src="qrcode.min.js"></script>
-        <script type="text/javascript" src="main.js"></script>
         <link rel="stylesheet" href="style.css">
         <h1>Tạo mã QR miễn phí</h1>
 	</head>
@@ -13,12 +11,12 @@
 		<div id = "modes" class="center-div">
     		<button id="text_button" onclick="chooseMode('text_button')">Văn bản / link</button>
     		<button id="bank_button" onclick="chooseMode('bank_button')">QR ngân hàng</button>
+			<button id="wifi_button" onclick="chooseMode('wifi_button')">Wifi</button>
     	</div>
     	<br><br>
 		<div id="input">
 			<div id="text_form">
 				<textarea id="input_text" rows="4" type="text" placeholder="Nhập nội dung cần tạo mã QR"></textarea>
-				<button type="button" onclick="createQR('text')">Tạo mã QR</button>
 			</div>
 			<div id="bank_form" style="display:none;" onload="getAllBanks()">
 				<form>
@@ -33,12 +31,29 @@
 					<label for="sotien">Số tiền</label>
 					<input type="number" id="sotien"><br><br>
 					<p><span style="color:crimson">*</span> là trường bắt buộc</p>
-					<button type="button" onclick="createQR('bank')">Tạo mã QR</button>
 				</form>
 			</div>
+			<div id="wifi_form" style="display:none;">
+				<label for="ssid">Tên Wifi</label>
+				<input type="text" id="ssid"><br><br>
+				<label for="pass">Mật khẩu</label>
+				<input type="password" id="pass"><br><br>
+				<label for="security">Bảo mật</label>
+				<select id="security">
+					<option value="WPA">WPA/WPA2/WPA3 (mặc định)</option>
+					<option value="WEP">WEP</option>
+					<option value="nopass">Không mật khẩu</option>
+				</select><br><br>
+				<label for="hidden">Wifi ẩn</label>
+				<input type="checkbox" id="hidden" value="true">
+				<br>
+			</div>
+			<button type="button" onclick="createQR('wifi')">Tạo mã QR</button>
 		</div>
 		<div id="qrcode" style="display: none;"></div>
     	<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
+		<script type="text/javascript" src="qrcode.min.js"></script>
+        <script type="text/javascript" src="main.js"></script>
 	</body>
 	<footer>
     	&copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/qr-maker/" style="color: white;">Source Code</a>
