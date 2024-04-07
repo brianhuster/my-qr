@@ -42,8 +42,8 @@ function chooseMode(id){
         hide(str);
     });
     display(id.replace("button","form"));
-document.getElementById(id).classList.add('active');
     window.location.hash = id.replace("_button","");
+    document.getElementById(id).classList.add('active');
 }
 
 function createQrWithText(content){
