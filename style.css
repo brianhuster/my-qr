@@ -104,9 +104,6 @@ footer {
         body {
             font-size: 15px; 
         }
-        button {
-            padding: 15px 30px; 
-        }
         input, select, textarea {
             width: 95%; 
             padding: 15px; 
