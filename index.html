@@ -9,9 +9,9 @@
 	</head>
 	<body onload="getAllBanks()">
 		<div id = "modes" class="center-div">
-    		<button id="text_button" onclick="chooseMode('text_button')">Văn bản / link</button>
-    		<button id="bank_button" onclick="chooseMode('bank_button')">QR ngân hàng</button>
-			<button id="wifi_button" onclick="chooseMode('wifi_button')">Wifi</button>
+    		<button id="text_button" class="unchecked" onclick="chooseMode('text_button')">Văn bản / link</button>
+    		<button id="bank_button" class="unchecked" onclick="chooseMode('bank_button')">QR ngân hàng</button>
+			<button id="wifi_button" class="unchecked" onclick="chooseMode('wifi_button')">Wifi</button>
     	</div>
     	<br><br>
 		<div id="input">
@@ -56,8 +56,8 @@
     	<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
 		<script type="text/javascript" src="qrcode.min.js"></script>
         <script type="text/javascript" src="main.js"></script>
+	
+		<div id="footer"></a></div>
 	</body>
-	<footer>
-    	&copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/qr-maker/" style="color: white;">Source Code</a>
-	</footer>
+	<footer>&copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/qr-maker/" style="color: white;">Source Code</footer>
 </html>

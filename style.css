@@ -30,30 +30,35 @@ button {
   margin: 10px;
   border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 button:hover {
+    transition: all 0.3s ease;
   background-color: #0056b3; 
   transform: translateY(-2px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 #modes button{
-  border: 2px;
-  background-color: white;
-  border-color: #04AA6D;
-  color: green;
   border-radius: 5px;
-  margin: 0px;
-  padding: 14px 28px;
+  margin: 5px;
+  padding: 12px 20px;
   font-size: 16px;
   cursor: pointer;
 }
-#modes button:hover, #mode button:focus{
-  background-color: #04AA6D;
-  color: white;
+#modes .unchecked{
+  background-color: white ;
+  color: green;
 }
+#modes .unchecked:hover {
+    background-color: #04AA6D ;
+    color: white ;
+    transition: all 0.3s ease;
+  }
+#modes .checked {
+    background-color: #04AA6D ;
+    color: white ;
+  }
 #textQR, #bankQR {
   background-color: #fff;
   padding: 30px;
@@ -124,3 +129,4 @@ footer {
             width: device-width;
         }
     }
+

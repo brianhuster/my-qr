@@ -6,16 +6,17 @@ function handleHashChange() {
     else if (hash == 'bank') {
         getAllBanks();
     }
-    setTimeout(function() {
-        chooseMode(hash + "_button");
-    }, 50); 
+    chooseMode(hash + "_button");
 }
+
+let lastFocusedButton = null;
+
 window.onload = function() {
-    
-    handleHashChange();
+  handleHashChange();
 };
+
 window.addEventListener('hashchange', function() {
-    handleHashChange();
+  handleHashChange();
 });
 
 function display(ID)
@@ -37,13 +38,16 @@ function chooseMode(id){
     const buttons = document.querySelectorAll('#modes button');
     hide('qrcode'); hide('download');
     buttons.forEach(button => {
-        button.blur();
-        str=button.id.replace("button","form");
+        button.classList.remove('checked');  
+        button.classList.add('unchecked');
+        const str=button.id.replace("button","form");
         hide(str);
     });
     display(id.replace("button","form"));
     window.location.hash = id.replace("_button","");
-    document.getElementById(id).focus();
+    object=document.getElementById(id);
+    object.classList.remove('unchecked');
+    object.classList.add('checked');
 }
 
 function createQrWithText(content){
