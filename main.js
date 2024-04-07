@@ -6,7 +6,9 @@ function handleHashChange() {
     else if (hash == 'bank') {
         getAllBanks();
     }
-    chooseMode(hash + "_button");
+    setTimeout(function() {
+        chooseMode(hash + "_button");
+    }, 50); 
 }
 window.onload = function() {
     
@@ -38,12 +40,6 @@ function chooseMode(id){
         button.classList.remove('active');
         str=button.id.replace("button","form");
         hide(str);
-    setTimeout(function() {
-                  document.getElementById(id).classList.add('active');
-        display(id.replace("button","form"));
-        window.location.hash = id.replace("_button","");
-    }, 100); // 100 milliseconds delay
-}    
     });
     document.getElementById(id).classList.add('active');
     display(id.replace("button","form"));
