@@ -41,8 +41,8 @@ function chooseMode(id){
         str=button.id.replace("button","form");
         hide(str);
     });
-    document.getElementById(id).classList.add('active');
     display(id.replace("button","form"));
+document.getElementById(id).classList.add('active');
     window.location.hash = id.replace("_button","");
 }
 
