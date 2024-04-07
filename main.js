@@ -1,5 +1,8 @@
 function handleHashChange() {
     var hash = window.location.hash.substr(1);
+    if (!hash) {
+        hash = 'text';
+    }
     chooseMode(hash + "_button");
 }
 window.onload = function() {
@@ -12,14 +15,14 @@ window.addEventListener('hashchange', function() {
 function display(ID)
 {
     var element = document.getElementById(ID);
-    if (element && element.style.display == 'none') {
+    if (element.style.display == 'none') {
         element.style.display = 'block';
     }
 }
 function hide(ID)
 {   
     var element = document.getElementById(ID);
-    if (element && element.style.display !== 'none') {
+    if (element.style.display !== 'none') {
         element.style.display = 'none';
     }
 }
