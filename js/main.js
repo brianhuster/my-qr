@@ -171,7 +171,7 @@ function startScan() {
         result => alert('decoded qr code:', result),
         maxScansPerSecond=10,
         highlightCodeOutline=true,
-        returnDetailedScanResult=true
+        // returnDetailedScanResult=true
     );
     qrScanner.setInversionMode('both');
 
@@ -180,6 +180,7 @@ function startScan() {
     button.classList.add('checked');
     button.classList.remove('unchecked');
     button.innerHTML="Tắt camera";
+
     function stopScan(){
         qrScanner.stop();
         video.style.display = 'none';
