@@ -156,9 +156,11 @@ async function getAllBanks(){
     }
 } 
 
-function startScan() {
-    var video = document.getElementById('preview');
-    let useFrontCamera = false;
+let useFrontCamera = false;
+function startScan(useFrontCamera) {
+    display('switchCamera');
+    var video = document.getElementById('camera');
+    video.style.display = 'block';
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ 
             video: { facingMode: useFrontCamera ? "user" : "environment" } 
@@ -174,32 +176,53 @@ function startScan() {
     else {
         alert("Xin lỗi, có vẻ trình duyệt của bạn không hỗ trợ camera. Vui lòng thử trình duyệt khác. Nếu cách này không giải quyết được vấn đề, bạn vẫn có thể quét QR bằng cách tải ảnh QR lên");
     }
+    var button = document.getElementById('scan_button');
+    button.classList.add('checked');
+    button.classList.remove('unchecked');
+    button.innerHTML="Tắt camera";
+    button.onclick=stopScan();
     document.getElementById('switchCamera').addEventListener('click', function() {
         useFrontCamera = !useFrontCamera;
-        startScan();
+        startScan(useFrontCamera);
     });
-    import('/js/qr-scanner.min.js').then((module) => {
-        const QrScanner = module.default;
-        const qrScanner = new QrScanner(
-            video,
-            result => console.log('decoded qr code:', result),
-            highlightScanRegion=true,
-            highlightCodeOutline=true,
-            returnDetailedScanResult=true
-        );
-        qrScanner.start();
-    });
+
+    const qrScanner = new QrScanner(
+        video,
+        result => alert('decoded qr code:', result),
+        highlightCodeOutline=true
+    );
+    
 }
 
 function stopScan() {
-    var video = document.getElementById('preview');
+    var video = document.getElementById('camera');
     var stream = video.srcObject;
     var tracks = stream.getTracks();
-
     for (var i = 0; i < tracks.length; i++) {
         var track = tracks[i];
         track.stop();
     }
-
     video.srcObject = null;
+    video.style.display = 'none';
+    var button = document.getElementById('scan_button');
+    button.classList.add('unchecked');
+    button.classList.remove('checked');
+    button.innerHTML="Bắt đầu quét qua camera";
+    button.onclick=startScan();
 }
+
+document.getElementById('input_img').addEventListener('change', function() {
+    var file = this.files[0]; 
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+        var uploaded_img = document.createElement("img");
+        uploaded_img.src = reader.result;
+        QrScanner.scanImage(uploaded_img)
+        .then(result => alert("Mã QR có nội dung : "+result))
+        .catch(error => alert(error || 'No QR code found.'));
+    }
+    if (file) {
+        reader.readAsDataURL(file); 
+    }
+});

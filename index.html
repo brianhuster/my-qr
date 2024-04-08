@@ -28,10 +28,10 @@
 					<label for="correction">Khả năng tự phục hồi</label>
 					<br>
 					<select id="correction" style="padding: 6p;">
-						<option value="L">Thấp (phù hợp chia sẻ qua mạng)</option>
-						<option value="M">Trung bình (phù hợp cho hầu hết mục đích chung)</option>
-						<option value="Q">Trung bình cao (phù hợp cho môi trường dễ dính bẩn)</option>
-						<option value="H">Cao (phù hợp cho công nghiệp)</option>
+						<option value="L">Thấp (tối đa 7%, phù hợp chia sẻ qua mạng)</option>
+						<option value="M">Trung bình (tối đa 15%, hợp cho hầu hết mục đích chung)</option>
+						<option value="Q">Trung bình cao (tối đa 25%, hợp cho môi trường dễ dính bẩn)</option>
+						<option value="H">Cao (tối đa 30%, phù hợp cho công nghiệp)</option>
 					</select><br><br>
 					<p>Khả năng tự phục hồi càng cao thì QR code càng khó bị hỏng do các yếu tố bên ngoài, nhưng lượng nội dung tối đa mã hóa được sẽ giảm</p>
 					<button type="button" onclick="createQR('text')">Tạo mã QR</button>
@@ -81,16 +81,21 @@
 		</div>
 
 		<div id="scanner" style="display:none;">
-			<h3>Tính năng quét QR đang trong giai đoạn phát triển nên không hoạt động bình thường</h3>
+			<h3>Tính năng quét QR đang trong giai đoạn phát triển nên có thể không hoạt động bình thường</h3>
 			<button id="scan_button" type="button" class="unchecked" onclick="startScan()">Bắt đầu quét qua camera</button>
-			<button id="switchCamera">Chuyển camera</button>
-			<video id="preview"></video>
+			<br>
+			<video id="camera" style="display: none;"></video>
+			<br>
+			<label for="input_img">Hoặc chọn hình ảnh từ bộ nhớ</label>
+			<input id="input_img" type="file" accept="image/*">
+			<button id="switchCamera" style="display: none;">Chuyển camera</button>
 		</div>
 
 		<div id="result" style="display: none;"></div>
     	<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
 		<script type="text/javascript" src="js/qr-maker.min.js"></script>
+		<script src="js/qr-scanner.umd.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
 	</body>
-	<footer>&copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/qr-maker/" style="color: white;">Source Code</footer>
+	<footer>&copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/my-qr/" style="color: white;">Source Code</footer>
 </html>
