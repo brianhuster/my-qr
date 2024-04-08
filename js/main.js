@@ -75,7 +75,7 @@ function createQrWithText(content){
         height:480,
         colorDark:"#000000",
         colorLight:"#ffffff",
-        correctLevel:QRCode.CorrectLevel.M
+        correctLevel:QRCode.CorrectLevel.L
     });
 }
 function createQR(option)
@@ -152,9 +152,9 @@ async function getAllBanks(){
 function startScan() {
     var video = document.getElementById('preview');
 
-    if (navigator.mediaDevices.getUserMedia) {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: { exact: "environment" } } 
+            video: { facingMode: { facingMode: "environment" } } 
         })
         .then(function (stream) {
             video.srcObject = stream;
