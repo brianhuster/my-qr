@@ -153,14 +153,16 @@ function startScan() {
     var video = document.getElementById('preview');
 
     if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(function (error) {
-                console.log("Something went wrong!");
-            });
+        navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: { exact: "environment" } } 
+        })
+        .then(function (stream) {
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function (error) {
+            console.log("Something went wrong!");
+        });
     }
     else {
         alert("Xin lỗi, có vẻ như trình duyệt của bạn không hỗ trợ camera. Vui lòng thử trình duyệt khác. Nếu cách này không giải quyết được vấn đề, bạn vẫn có thể quét QR bằng cách tải ảnh QR lên");
