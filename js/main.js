@@ -39,6 +39,7 @@ function hide(ID)
 function chooseMode(id){
     hide('result'); hide('download'); 
     if (id!="scanner"){
+        stopScan();
         hide('scanner');
         display("maker");
         display(id);
