@@ -181,11 +181,6 @@ function startScan(useFrontCamera) {
     button.classList.remove('unchecked');
     button.innerHTML="Tắt camera";
     button.onclick=stopScan;
-    document.getElementById('switchCamera').addEventListener('click', function() {
-        useFrontCamera = !useFrontCamera;
-        stopScan();
-        startScan(useFrontCamera);
-    });
 
     const qrScanner = new QrScanner(
         video,
@@ -196,23 +191,32 @@ function startScan(useFrontCamera) {
 }
 
 function stopScan() {
-    var video = document.getElementById('camera');
-    var stream = video.srcObject;
-    if (stream){
-        var tracks = stream.getTracks();
-        for (var i = 0; i < tracks.length; i++) {
-            var track = tracks[i];
-            track.stop();
+    return new Promise((resolve, reject) => {
+        var video = document.getElementById('camera');
+        var stream = video.srcObject;
+        if (stream){
+            var tracks = stream.getTracks();
+            for (var i = 0; i < tracks.length; i++) {
+                var track = tracks[i];
+                track.onended = resolve; // Resolve the Promise when the track has ended
+                track.stop();
+            }
         }
-    }
-    video.srcObject = null;
-    video.style.display = 'none';
-    var button = document.getElementById('scan_button');
-    button.classList.add('unchecked');
-    button.classList.remove('checked');
-    button.innerHTML="Bắt đầu quét qua camera";
-    button.onclick=function(){startScan(useFrontCamera);}
+        video.srcObject = null;
+        video.style.display = 'none';
+        var button = document.getElementById('scan_button');
+        button.classList.add('unchecked');
+        button.classList.remove('checked');
+        button.innerHTML="Bắt đầu quét qua camera";
+        button.onclick=function(){startScan(useFrontCamera);}
+    });
 }
+
+document.getElementById('switchCamera').addEventListener('click', function() {
+    useFrontCamera = !useFrontCamera;
+    stopScan().then(() => startScan(useFrontCamera));
+    console.log("Use front camera : "+useFrontCamera);
+});
 
 document.getElementById('input_img').addEventListener('change', function() {
     var file = this.files[0]; 
