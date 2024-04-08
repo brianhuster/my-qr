@@ -182,7 +182,7 @@ function stopScan() {
 
     video.srcObject = null;
 }
-import('/js/qr-scanner.min.js').then((module) => {
+import('qr-scanner.min.js').then((module) => {
     const QrScanner = module.default;
     videoElem=document.getElementById('preview');
     const qrScanner = new QrScanner(
