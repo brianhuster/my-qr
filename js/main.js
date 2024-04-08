@@ -158,8 +158,10 @@ async function getAllBanks(){
 
 function startScan() {
     if (!QrScanner.hasCamera()) hide('scanButton');
-    QrScanner.listCameras(). forEach(camera => {
-        console.log(camera);
+    QrScanner.listCameras().then(cameras => {
+        cameras.forEach(camera => {
+            console.log(camera);
+        });
     })
     var video = document.getElementById('camera');
     video.style.display = 'block';
@@ -177,7 +179,7 @@ function startScan() {
     button.classList.add('checked');
     button.classList.remove('unchecked');
     button.innerHTML="Tắt camera";
-    
+
     button.onclick=function(){
         qrScanner.stop();
         video.style.display = 'none';
