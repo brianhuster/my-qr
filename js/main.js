@@ -69,14 +69,18 @@ function chooseMode(id){
     }
 }
 
-function createQrWithText(content){
+function createQrWithText(content, correction){
+    if (correction=="L") correctLevel=QRCode.CorrectLevel.L;
+    else if (correction=="M") correctLevel=QRCode.CorrectLevel.M;
+    else if (correction=="Q") correctLevel=QRCode.CorrectLevel.Q;
+    else correctLevel=QRCode.CorrectLevel.H;
     var result = new QRCode("result", {
         text: content,
         width:480,
         height:480,
         colorDark:"#000000",
         colorLight:"#ffffff",
-        correctLevel:QRCode.CorrectLevel.L
+        correctLevel:correctLevel
     });
 }
 function createQR(option)
@@ -86,7 +90,8 @@ function createQR(option)
     img.innerHTML='';
     if (option=="text"){
         var content=document.getElementById("input_text").value;
-        createQrWithText(content);
+        var correction=document.getElementById("correction").value;
+        createQrWithText(content, correction);
     }
     else if (option=="bank"){
         var ngan_hang=document.getElementById("ngan_hang").value;
@@ -104,8 +109,9 @@ function createQR(option)
         var pass=document.getElementById("pass").value;
         var security=document.getElementById("security").value;
         var hidden=document.getElementById("hidden").checked;
-        var text=`WIFI:S:${ssid};T:${security};P:${pass};H:${hidden};`
-        createQrWithText(text);
+        var text=`WIFI:S:${ssid};T:${security};P:${pass};H:${hidden};`;
+        var correction=document.getElementById("wifi_correction").value;
+        createQrWithText(content, correction);
     }
     display("result");
     display("download");
@@ -168,6 +174,18 @@ function startScan() {
     else {
         alert("Xin lỗi, có vẻ như trình duyệt của bạn không hỗ trợ camera. Vui lòng thử trình duyệt khác. Nếu cách này không giải quyết được vấn đề, bạn vẫn có thể quét QR bằng cách tải ảnh QR lên");
     }
+    import('/js/qr-scanner.min.js').then((module) => {
+        const QrScanner = module.default;
+        videoElem=document.getElementById('preview');
+        const qrScanner = new QrScanner(
+            video,
+            result => console.log('decoded qr code:', result),
+            highlightScanRegion=true,
+            highlightCodeOutline=true,
+            returnDetailedScanResult=true
+        );
+        qrScanner.start();
+    });
 }
 
 function stopScan() {
@@ -182,12 +200,3 @@ function stopScan() {
 
     video.srcObject = null;
 }
-import('qr-scanner.min.js').then((module) => {
-    const QrScanner = module.default;
-    videoElem=document.getElementById('preview');
-    const qrScanner = new QrScanner(
-        videoElem,
-        result => console.log('decoded qr code:', result),
-    );
-    qrScanner.start();
-});
