@@ -187,7 +187,7 @@ function startScan(useFrontCamera) {
         result => alert('decoded qr code:', result),
         highlightCodeOutline=true
     );
-    
+    qrScanner.start();
 }
 
 function stopScan() {
