@@ -112,7 +112,7 @@ function createQR(option)
         var hidden=document.getElementById("hidden").checked;
         var text=`WIFI:S:${ssid};T:${security};P:${pass};H:${hidden};`;
         var correction=document.getElementById("wifi_correction").value;
-        createQrWithText(content, correction);
+        createQrWithText(text, correction);
     }
     display("result");
     display("download");
