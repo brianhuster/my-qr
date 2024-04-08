@@ -168,7 +168,7 @@ function startScan() {
 
     const qrScanner = new QrScanner(
         video,
-        result => updateQrResult("Mã QR có nội dung : "+result),
+        result => updateQrResult("Mã QR có nội dung : "+result.data),
         {   
             maxScansPerSecond: 10,
             highlightScanRegion:true,

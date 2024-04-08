@@ -49,12 +49,6 @@ li a {
 li a:hover {
   color: #4568dc;
 }
-.center-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
 
 button {
   background-color: #007BFF; 
@@ -66,9 +60,14 @@ button {
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
-
+#modes {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  flex-wrap: wrap;
+}
 button:hover {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
   background-color: #0056b3; 
   transform: translateY(-2px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
@@ -142,6 +141,9 @@ appearance: textfield;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
+video{
+  max-width: 1200px;
+}
 
 footer {
     background-color: #333;
@@ -161,5 +163,20 @@ footer {
       width: 95%; 
       padding: 15px; 
   }
+  #modes {
+    justify-content: center;
+  }
+  button{
+    justify-content: center;
+  }
 }
 
+@media only screen and (max-width: 900px) {
+  body {
+      font-size: 12px; 
+  }
+  li a {
+    font-size: 16px;
+    padding : 0px 7px
+  }
+}
