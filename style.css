@@ -144,7 +144,9 @@ appearance: textfield;
 video{
   max-width: 1200px;
 }
-
+code{
+  color: #0000FF;
+}
 footer {
     background-color: #333;
     color: #fff;
@@ -171,12 +173,12 @@ footer {
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 600px) {
   body {
       font-size: 12px; 
   }
   li a {
-    font-size: 16px;
+    font-size: 14px;
     padding : 0px 7px
   }
 }

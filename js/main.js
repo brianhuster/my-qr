@@ -168,7 +168,7 @@ function startScan() {
 
     const qrScanner = new QrScanner(
         video,
-        result => updateQrResult("Mã QR có nội dung : "+result.data),
+        result => updateQrResult(result.data),
         {   
             maxScansPerSecond: 10,
             highlightScanRegion:true,
@@ -209,8 +209,8 @@ document.getElementById('input_img').addEventListener('change', function() {
         var uploaded_img = document.createElement("img");
         uploaded_img.src = reader.result;
         QrScanner.scanImage(uploaded_img)
-        .then(result => updateQrResult("Mã QR có nội dung : "+result))
-        .catch(error => updateQrResult('Không tìm thấy QR'));
+        .then(result => updateQrResult(result))
+        .catch(error => updateQrResult(''));
     }
     if (file) {
         reader.readAsDataURL(file); 
@@ -219,7 +219,44 @@ document.getElementById('input_img').addEventListener('change', function() {
 
 function updateQrResult(result){
     var output = document.getElementById('result');
-    output.style.display = 'block';
+    if (result=="") result="Không tìm thấy mã QR";
+    else result=`Kết quả quét QR : ${handle_result(result)}`;
     output.innerHTML = result;
+    output.style.display = 'block';
     output.scrollIntoView({ behavior: 'smooth' });
+}
+
+function isURL(str){
+    var urlRegex = new RegExp('^(https?:\\/\\/)?'+ // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+        '(\\:\\d+)?'+ // port
+        '(\\/[-a-z\\d%_.~+]*)*'+ // path
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return urlRegex.test(str);
+}
+
+function handle_result(str) {
+    var wifiRegex = /^WIFI:T:(WPA|WEP|nopass);S:(.+);P:(.+);H:(true|false);;$/;
+    var match = str.match(wifiRegex);
+    if (match) {
+        return 
+            `<pre><code>${str}</code></pre>
+             <p>Đây có vẻ là một mã QR wifi. Thông tin chi tiết như sau</p>
+             <p>Tên đăng nhập : ${match[2]}</p>
+             <p>Mật khẩu : ${match[3]}</p>
+             <p>Bảo mật : ${match[1]}</p>
+             <p>Mạng ẩn : ${match[4] === 'true' ? 'Có' : 'Không'}</p>`;
+    } 
+    else if (isURL(str)) {
+        var url = str;
+        if (!/^https?:\/\//i.test(str)) {
+            url = 'https://' + str;
+        }
+        return `<code><a href="${url}" target="_blank">${str}</a></code>`;
+    }
+    else {
+        return `<pre><code>${str}</code></pre>`;
+    }
 }
