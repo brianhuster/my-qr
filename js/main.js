@@ -158,10 +158,10 @@ async function getAllBanks(){
 
 function startScan() {
     var video = document.getElementById('preview');
-
+    let useFrontCamera = false;
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: { facingMode: "environment" } } 
+            video: { facingMode: useFrontCamera ? "user" : "environment" } 
         })
         .then(function (stream) {
             video.srcObject = stream;
@@ -172,11 +172,14 @@ function startScan() {
         });
     }
     else {
-        alert("Xin lỗi, có vẻ như trình duyệt của bạn không hỗ trợ camera. Vui lòng thử trình duyệt khác. Nếu cách này không giải quyết được vấn đề, bạn vẫn có thể quét QR bằng cách tải ảnh QR lên");
+        alert("Xin lỗi, có vẻ trình duyệt của bạn không hỗ trợ camera. Vui lòng thử trình duyệt khác. Nếu cách này không giải quyết được vấn đề, bạn vẫn có thể quét QR bằng cách tải ảnh QR lên");
     }
+    document.getElementById('switchCamera').addEventListener('click', function() {
+        useFrontCamera = !useFrontCamera;
+        startScan();
+    });
     import('/js/qr-scanner.min.js').then((module) => {
         const QrScanner = module.default;
-        videoElem=document.getElementById('preview');
         const qrScanner = new QrScanner(
             video,
             result => console.log('decoded qr code:', result),
