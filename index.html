@@ -5,54 +5,68 @@
 		<meta name="google-site-verification" content="POTFbt_ixTZAazST0fTUJQmBxTBTiOnPImUWfvERjHo" />
 		<title>Tạo mã QR miễn phí</title>
         <link rel="stylesheet" href="style.css">
-        <h1>Tạo mã QR miễn phí</h1>
 	</head>
 	<body onload="getAllBanks()">
-		<div id = "modes" class="center-div">
-    		<button id="text_button" class="unchecked" onclick="chooseMode('text_button')">Văn bản / link</button>
-    		<button id="bank_button" class="unchecked" onclick="chooseMode('bank_button')">QR ngân hàng</button>
-			<button id="wifi_button" class="unchecked" onclick="chooseMode('wifi_button')">Wifi</button>
-    	</div>
-    	<br><br>
-		<div id="input">
-			<div id="text_form">
-				<textarea id="input_text" rows="4" type="text" placeholder="Nhập nội dung cần tạo mã QR"></textarea>
-				<button type="button" onclick="createQR('text')">Tạo mã QR</button>
+		<div class="header">
+			<h1>MyQR</h1>
+			<ul>
+				<li><a href="#">Tạo mã QR</a></li>
+				<li><a href="#scanner">Quét mã QR</a></li>
+			</ul>
+		</div>
+		<div id="maker">
+			<div id = "modes" class="center-div">
+				<a href="#text"><button id="text_button" class="unchecked">Văn bản / link</button></a>
+				<a href="#bank"><button id="bank_button" class="unchecked">QR ngân hàng</button></a>
+				<a href="#wifi"><button id="wifi_button" class="unchecked">Wifi</button></a>
 			</div>
-			<div id="bank_form" style="display:none;" onload="getAllBanks()">
-				<form>
-					<label for="ngan_hang"><span>Ngân hàng</span><span style="color:crimson">*</span></label>
-					<select id="ngan_hang"></select><br><br>
-					<label for="STK"><span>Số tài khoản</span><span style="color:crimson">*</span></label>
-					<input type="number" id="STK" placeholder="Vui lòng kiểm tra kỹ số tài khoản"><br><br>
-					<label for="hovaten">Họ và tên</label>
-					<input type="text" id="hovaten"><br><br>
-					<label for="ndck">Nội dung chuyển khoản</label>
-					<input type="text" id="ndcl"><br><br>
-					<label for="sotien">Số tiền</label>
-					<input type="number" id="sotien"><br><br>
-					<p><span style="color:crimson">*</span> là trường bắt buộc</p>
-				</form>
-				<button type="button" onclick="createQR('bank')">Tạo mã QR</button>
-			</div>
-			<div id="wifi_form" style="display:none;">
-				<label for="ssid">Tên Wifi</label>
-				<input type="text" id="ssid"><br><br>
-				<label for="pass">Mật khẩu</label>
-				<input type="password" id="pass"><br><br>
-				<label for="security">Bảo mật</label>
-				<select id="security">
-					<option value="WPA">WPA/WPA2/WPA3 (mặc định)</option>
-					<option value="WEP">WEP</option>
-					<option value="nopass">Không mật khẩu</option>
-				</select><br><br>
-				<label for="hidden">Wifi ẩn</label>
-				<input type="checkbox" id="hidden" value="true">
-				<br>
-				<button type="button" onclick="createQR('wifi')">Tạo mã QR</button>
+			<br><br>
+			<div id="input">
+				<div id="text">
+					<textarea id="input_text" rows="4" type="text" placeholder="Nhập nội dung cần tạo mã QR"></textarea>
+					<button type="button" onclick="createQR('text')">Tạo mã QR</button>
+				</div>
+				<div id="bank" onload="getAllBanks()">
+					<form>
+						<label for="ngan_hang"><span>Ngân hàng</span><span style="color:crimson">*</span></label>
+						<select id="ngan_hang"></select><br><br>
+						<label for="STK"><span>Số tài khoản</span><span style="color:crimson">*</span></label>
+						<input type="number" id="STK" placeholder="Vui lòng kiểm tra kỹ số tài khoản"><br><br>
+						<label for="hovaten">Họ và tên</label>
+						<input type="text" id="hovaten"><br><br>
+						<label for="ndck">Nội dung chuyển khoản</label>
+						<input type="text" id="ndcl"><br><br>
+						<label for="sotien">Số tiền</label>
+						<input type="number" id="sotien"><br><br>
+						<p><span style="color:crimson">*</span> là trường bắt buộc</p>
+					</form>
+					<button type="button" onclick="createQR('bank')">Tạo mã QR</button>
+				</div>
+				<div id="wifi" style="display:none;">
+					<label for="ssid">Tên Wifi</label>
+					<input type="text" id="ssid"><br><br>
+					<label for="pass">Mật khẩu</label>
+					<input type="password" id="pass"><br><br>
+					<label for="security">Bảo mật</label>
+					<select id="security">
+						<option value="WPA">WPA/WPA2/WPA3 (mặc định)</option>
+						<option value="WEP">WEP</option>
+						<option value="nopass">Không mật khẩu</option>
+					</select><br><br>
+					<label for="hidden">Wifi ẩn</label>
+					<input type="checkbox" id="hidden" value="true">
+					<br>
+					<button type="button" onclick="createQR('wifi')">Tạo mã QR</button>
+				</div>
 			</div>
 		</div>
-		<div id="qrcode" style="display: none;"></div>
+
+		<div id="scanner" style="display:none;">
+			<button id="scan_button" type="button" class="unchecked" onclick="startScan()">Bắt đầu quét qua camera</button>
+			<video id="preview"></video>
+		</div>
+
+		<div id="result" style="display: none;"></div>
     	<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
 		<script type="text/javascript" src="js/qr-maker.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>

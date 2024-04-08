@@ -5,7 +5,11 @@ body {
   background-color: #f7f7f7;
   color: #333;
 }
-
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 h1 {
   font-weight: 600;
   background: linear-gradient(to right, #4568dc, #b06ab3);
@@ -13,8 +17,38 @@ h1 {
   -webkit-background-clip: text;
   background-clip: text;
   padding: 20px 0;
+  margin-right: 20px;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:  #f7f7f7;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size:20px
+}
+
+li a:hover {
+  color: #4568dc;
+}
 .center-div {
   display: flex;
   justify-content: center;
@@ -39,23 +73,23 @@ button:hover {
   transform: translateY(-2px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
-#modes button{
+#modes button, #scanner button{
   border-radius: 5px;
   margin: 5px;
   padding: 12px 20px;
   font-size: 16px;
   cursor: pointer;
 }
-#modes .unchecked{
+#modes .unchecked, #scanner .unchecked {
   background-color: white ;
   color: green;
 }
-#modes .unchecked:hover {
+#modes .unchecked:hover, #scanner .unchecked:hover {
     background-color: #04AA6D ;
     color: white ;
     transition: all 0.3s ease;
   }
-#modes .checked {
+#modes .checked, #scanner .checked {
     background-color: #04AA6D ;
     color: white ;
   }
@@ -98,7 +132,7 @@ input[type=number] {
 -moz-appearance: textfield;
 appearance: textfield;
 }
-#qrcode {
+#result {
   text-align: center;
   padding: 30px;
   margin: 10px;
@@ -118,15 +152,15 @@ footer {
 }
 
 @media only screen and (max-width: 1200px) {
-        body {
-            font-size: 15px; 
-        }
-        input, select, textarea {
-            width: 95%; 
-            padding: 15px; 
-        }
-        #qrcode{
-            width: device-width;
-        }
-    }
+  body {
+      font-size: 15px; 
+  }
+  input, select, textarea {
+      width: 95%; 
+      padding: 15px; 
+  }
+  #result{
+      width: device-width;
+  }
+}
 

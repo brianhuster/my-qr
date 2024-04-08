@@ -2,21 +2,23 @@ function handleHashChange() {
     var hash = window.location.hash.substr(1);
     if (!hash) {
         hash = 'text';
+        window.location.hash = hash;
     }
     else if (hash == 'bank') {
         getAllBanks();
     }
-    chooseMode(hash + "_button");
+    console.log("add hash 'text' to url");
+    chooseMode(hash);
 }
 
 let lastFocusedButton = null;
 
 window.onload = function() {
-  handleHashChange();
+    handleHashChange();
 };
 
 window.addEventListener('hashchange', function() {
-  handleHashChange();
+    handleHashChange();
 });
 
 function display(ID)
@@ -35,24 +37,37 @@ function hide(ID)
 }
 
 function chooseMode(id){
-
-    const buttons = document.querySelectorAll('#modes button');
-    hide('qrcode'); hide('download');
-    buttons.forEach(button => {
-        button.classList.remove('checked');  
-        button.classList.add('unchecked');
-        const str=button.id.replace("button","form");
-        hide(str);
-    });
-    display(id.replace("button","form"));
-    window.location.hash = id.replace("_button","");
-    object=document.getElementById(id);
-    object.classList.remove('unchecked');
-    object.classList.add('checked');
+    if (id!="scanner"){
+        hide('result'); hide('download'); hide('scanner');
+        display("maker");
+        display(id);
+        const buttons = document.querySelectorAll('#modes button');
+        buttons.forEach(button => {
+            if (button.id === id + '_button') {
+                button.classList.add('checked');
+                button.classList.remove('unchecked');
+            } else {
+                button.classList.add('unchecked');
+                button.classList.remove('checked');
+            }
+        });
+        const forms = document.querySelectorAll('#input div');
+        forms.forEach(form => {
+            if (form.id === id) {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        });
+    }
+    else{
+        display("scanner");
+        hide("maker");
+    }
 }
 
 function createQrWithText(content){
-    var qrcode = new QRCode("qrcode", {
+    var result = new QRCode("result", {
         text: content,
         width:480,
         height:480,
@@ -63,7 +78,8 @@ function createQrWithText(content){
 }
 function createQR(option)
 {
-    var img=document.getElementById("qrcode");
+    display("result");
+    var img=document.getElementById("result");
     img.innerHTML='';
     if (option=="text"){
         var content=document.getElementById("input_text").value;
@@ -88,7 +104,7 @@ function createQR(option)
         var text=`WIFI:S:${ssid};T:${security};P:${pass};H:${hidden};`
         createQrWithText(text);
     }
-    display("qrcode");
+    display("result");
     display("download");
     img.querySelector('img').onload = function() {
         document.getElementById("download").scrollIntoView({behavior: "smooth"});
@@ -96,7 +112,7 @@ function createQR(option)
 }
 function downloadQR()
 {
-    var canvas = document.getElementById("qrcode").querySelector('canvas');
+    var canvas = document.getElementById("result").querySelector('canvas');
     var img = canvas.toDataURL("image/png");
     var a = document.createElement('a');
     a.href = img;
@@ -130,3 +146,30 @@ async function getAllBanks(){
         selectBox.options.add(new Option(option, option, false));
     }
 } 
+
+function startScan() {
+    var video = document.getElementById('preview');
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.log("Something went wrong!");
+            });
+    }
+}
+
+function stopScan() {
+    var video = document.getElementById('preview');
+    var stream = video.srcObject;
+    var tracks = stream.getTracks();
+
+    for (var i = 0; i < tracks.length; i++) {
+        var track = tracks[i];
+        track.stop();
+    }
+
+    video.srcObject = null;
+}
