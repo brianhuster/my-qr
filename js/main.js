@@ -209,10 +209,17 @@ document.getElementById('input_img').addEventListener('change', function() {
         var uploaded_img = document.createElement("img");
         uploaded_img.src = reader.result;
         QrScanner.scanImage(uploaded_img)
-        .then(result => alert("Mã QR có nội dung : "+result))
-        .catch(error => alert(error || 'No QR code found.'));
+        .then(result => updateQrResult("Mã QR có nội dung : "+result))
+        .catch(error => updateQrResult('Không tìm thấy QR'));
     }
     if (file) {
         reader.readAsDataURL(file); 
     }
 });
+
+function updateQrResult(result){
+    var output = document.getElementById('result');
+    output.style.display = 'block';
+    output.innerHTML = result;
+    output.scrollIntoView({ behavior: 'smooth' });
+}
