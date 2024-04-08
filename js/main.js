@@ -201,6 +201,8 @@ function stopScan() {
                 track.onended = resolve; // Resolve the Promise when the track has ended
                 track.stop();
             }
+        }   else{
+            resolve();
         }
         video.srcObject = null;
         video.style.display = 'none';
