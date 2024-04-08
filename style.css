@@ -134,7 +134,7 @@ input[type=number] {
 appearance: textfield;
 }
 #result, video {
-  width: 100%
+  width: 100%;
   text-align: center;
   padding: 30px;
   margin: 10px;
@@ -157,12 +157,9 @@ footer {
   body {
       font-size: 15px; 
   }
-  input, select, textarea {
+  input, select, textarea, video, result {
       width: 95%; 
       padding: 15px; 
-  }
-  #result{
-      width: device-width;
   }
 }
 
