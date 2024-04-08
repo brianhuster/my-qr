@@ -183,6 +183,7 @@ function startScan(useFrontCamera) {
     button.onclick=stopScan;
     document.getElementById('switchCamera').addEventListener('click', function() {
         useFrontCamera = !useFrontCamera;
+        stopScan();
         startScan(useFrontCamera);
     });
 
@@ -210,7 +211,7 @@ function stopScan() {
     button.classList.add('unchecked');
     button.classList.remove('checked');
     button.innerHTML="Bắt đầu quét qua camera";
-    button.onclick=startScan();
+    button.onclick=function(){startScan(useFrontCamera);}
 }
 
 document.getElementById('input_img').addEventListener('change', function() {
