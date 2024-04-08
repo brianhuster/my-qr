@@ -169,9 +169,12 @@ function startScan() {
     const qrScanner = new QrScanner(
         video,
         result => alert('decoded qr code:', result),
-        maxScansPerSecond=10,
-        highlightCodeOutline=true,
-        // returnDetailedScanResult=true
+        {   
+            maxScansPerSecond: 10,
+            highlightScanRegion:true,
+            highlightCodeOutline:true,
+            returnDetailedScanResult:true,
+        }
     );
     qrScanner.setInversionMode('both');
 
