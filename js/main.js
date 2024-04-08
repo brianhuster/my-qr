@@ -179,8 +179,7 @@ function startScan() {
     button.classList.add('checked');
     button.classList.remove('unchecked');
     button.innerHTML="Tắt camera";
-
-    button.onclick=function(){
+    function stopScan(){
         qrScanner.stop();
         video.style.display = 'none';
         hide('switchCamera');
@@ -188,8 +187,13 @@ function startScan() {
         button.classList.remove('checked');
         button.innerHTML="Bắt đầu quét qua camera";
         button.onclick=function(){startScan()}
-    };
-    
+    }
+    button.onclick=function(){
+        stopScan();
+    }
+    window.addEventListener('hashchange', function() {
+        stopScan();
+    }); 
 }
 
 document.getElementById('input_img').addEventListener('change', function() {
