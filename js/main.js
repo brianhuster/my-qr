@@ -180,7 +180,7 @@ function startScan(useFrontCamera) {
     button.classList.add('checked');
     button.classList.remove('unchecked');
     button.innerHTML="Tắt camera";
-    button.onclick=stopScan();
+    button.onclick=stopScan;
     document.getElementById('switchCamera').addEventListener('click', function() {
         useFrontCamera = !useFrontCamera;
         startScan(useFrontCamera);
@@ -197,10 +197,12 @@ function startScan(useFrontCamera) {
 function stopScan() {
     var video = document.getElementById('camera');
     var stream = video.srcObject;
-    var tracks = stream.getTracks();
-    for (var i = 0; i < tracks.length; i++) {
-        var track = tracks[i];
-        track.stop();
+    if (stream){
+        var tracks = stream.getTracks();
+        for (var i = 0; i < tracks.length; i++) {
+            var track = tracks[i];
+            track.stop();
+        }
     }
     video.srcObject = null;
     video.style.display = 'none';
