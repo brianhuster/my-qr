@@ -59,10 +59,12 @@ function chooseMode(id){
                 form.style.display = 'none';
             }
         });
+        document.title = 'Tạo mã QR miễn phí'
     }
     else{
         display("scanner");
         hide("maker");
+        document.title = 'Quét mã QR'
     }
 }
 
@@ -73,7 +75,7 @@ function createQrWithText(content){
         height:480,
         colorDark:"#000000",
         colorLight:"#ffffff",
-        correctLevel:QRCode.CorrectLevel.L
+        correctLevel:QRCode.CorrectLevel.M
     });
 }
 function createQR(option)
@@ -154,10 +156,14 @@ function startScan() {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
                 video.srcObject = stream;
+                video.play();
             })
             .catch(function (error) {
                 console.log("Something went wrong!");
             });
+    }
+    else {
+        alert("Xin lỗi, có vẻ như trình duyệt của bạn không hỗ trợ camera. Vui lòng thử trình duyệt khác. Nếu cách này không giải quyết được vấn đề, bạn vẫn có thể quét QR bằng cách tải ảnh QR lên");
     }
 }
 
