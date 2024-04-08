@@ -171,7 +171,7 @@ function startScan() {
         result => alert('decoded qr code:', result),
         maxScansPerSecond=10,
         highlightCodeOutline=true,
-        returnDetailedScanResult:true
+        returnDetailedScanResult=true
     );
     qrScanner.setInversionMode('both');
 
