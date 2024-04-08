@@ -37,8 +37,9 @@ function hide(ID)
 }
 
 function chooseMode(id){
+    hide('result'); hide('download'); 
     if (id!="scanner"){
-        hide('result'); hide('download'); hide('scanner');
+        hide('scanner');
         display("maker");
         display(id);
         const buttons = document.querySelectorAll('#modes button');
@@ -181,3 +182,11 @@ function stopScan() {
 
     video.srcObject = null;
 }
+import('path/to/qr-scanner.min.js').then((module) => {
+    const QrScanner = module.default;
+    const qrScanner = new QrScanner(
+        videoElem,
+        result => console.log('decoded qr code:', result),
+    );
+    qrScanner.start();
+});
