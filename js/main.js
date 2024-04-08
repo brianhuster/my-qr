@@ -14,6 +14,7 @@ function handleHashChange() {
 let lastFocusedButton = null;
 
 window.onload = function() {
+    if (!QrScanner.hasCamera()) hide('scanButton');
     handleHashChange();
 };
 
@@ -157,7 +158,6 @@ async function getAllBanks(){
 } 
 
 function startScan() {
-    if (!QrScanner.hasCamera()) hide('scanButton');
     QrScanner.listCameras().then(cameras => {
         cameras.forEach(camera => {
             console.log(camera);
@@ -170,7 +170,8 @@ function startScan() {
         video,
         result => alert('decoded qr code:', result),
         maxScansPerSecond=10,
-        highlightCodeOutline=true
+        highlightCodeOutline=true,
+        returnDetailedScanResult:true
     );
     qrScanner.setInversionMode('both');
 
