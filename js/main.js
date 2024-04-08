@@ -39,7 +39,6 @@ function hide(ID)
 function chooseMode(id){
     hide('result'); hide('download'); 
     if (id!="scanner"){
-        stopScan();
         hide('scanner');
         display("maker");
         display(id);
@@ -157,69 +156,39 @@ async function getAllBanks(){
     }
 } 
 
-let useFrontCamera = false;
-function startScan(useFrontCamera) {
-    display('switchCamera');
+function startScan() {
+    if (!QrScanner.hasCamera()) hide('scanButton');
+    QrScanner.listCameras(). forEach(camera => {
+        console.log(camera);
+    })
     var video = document.getElementById('camera');
     video.style.display = 'block';
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: useFrontCamera ? "user" : "environment" } 
-        })
-        .then(function (stream) {
-            video.srcObject = stream;
-            video.play();
-        })
-        .catch(function (error) {
-            console.log("Something went wrong!");
-        });
-    }
-    else {
-        alert("Xin lỗi, có vẻ trình duyệt của bạn không hỗ trợ camera. Vui lòng thử trình duyệt khác. Nếu cách này không giải quyết được vấn đề, bạn vẫn có thể quét QR bằng cách tải ảnh QR lên");
-    }
-    var button = document.getElementById('scan_button');
-    button.classList.add('checked');
-    button.classList.remove('unchecked');
-    button.innerHTML="Tắt camera";
-    button.onclick=stopScan;
 
     const qrScanner = new QrScanner(
         video,
         result => alert('decoded qr code:', result),
+        maxScansPerSecond=10,
         highlightCodeOutline=true
     );
-    qrScanner.start();
-}
+    qrScanner.setInversionMode('both');
 
-function stopScan() {
-    return new Promise((resolve, reject) => {
-        var video = document.getElementById('camera');
-        var stream = video.srcObject;
-        if (stream){
-            var tracks = stream.getTracks();
-            for (var i = 0; i < tracks.length; i++) {
-                var track = tracks[i];
-                track.onended = resolve; // Resolve the Promise when the track has ended
-                track.stop();
-            }
-        }   else{
-            resolve();
-        }
-        video.srcObject = null;
+    qrScanner.start();
+    var button = document.getElementById('scan_button');
+    button.classList.add('checked');
+    button.classList.remove('unchecked');
+    button.innerHTML="Tắt camera";
+    
+    button.onclick=function(){
+        qrScanner.stop();
         video.style.display = 'none';
-        var button = document.getElementById('scan_button');
+        hide('switchCamera');
         button.classList.add('unchecked');
         button.classList.remove('checked');
         button.innerHTML="Bắt đầu quét qua camera";
-        button.onclick=function(){startScan(useFrontCamera);}
-    });
+        button.onclick=function(){startScan()}
+    };
+    
 }
-
-document.getElementById('switchCamera').addEventListener('click', function() {
-    useFrontCamera = !useFrontCamera;
-    stopScan().then(() => startScan(useFrontCamera));
-    console.log("Use front camera : "+useFrontCamera);
-});
 
 document.getElementById('input_img').addEventListener('change', function() {
     var file = this.files[0]; 
