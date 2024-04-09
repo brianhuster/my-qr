@@ -252,7 +252,7 @@ function isURL(str){
 
 function handle_result(str) {
     if (str.startsWith("WIFI:") && str.endsWith(";")) {
-        var wifiInfo = str.slice(5, -2); // Remove "WIFI:" prefix and ";;" suffix
+        var wifiInfo = str.slice(5, -1); // Remove "WIFI:" prefix and ";;" suffix
         var fields = wifiInfo.split(/;(T|P|H|S):/); // Split on field separators
         var wifi = {
             T: null,
