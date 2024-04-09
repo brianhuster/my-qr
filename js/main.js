@@ -192,12 +192,13 @@ function startScan() {
     
         async function stopScan(){
             button.onclick=null;
-            await qrScanner.stop();
+            video.pause();
+            video.srcObject = null; 
             video.style.display = 'none';
             hide('switchCamera');
-            button.classList.remove('checked');
-            button.classList.add('unchecked');
             button.innerHTML="Bắt đầu quét qua camera";
+            button.classList.add('unchecked');
+            button.classList.remove('checked');
             button.onclick=function(){startScan()}
         }
         button.onclick=function(){
