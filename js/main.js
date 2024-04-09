@@ -170,7 +170,7 @@ async function startScan() {
         video,
         result => updateQrResult(result.data),
         {   
-            maxScansPerSecond: 10,
+            maxScansPerSecond: 5,
             highlightScanRegion:true,
             highlightCodeOutline:true,
             returnDetailedScanResult:true,
