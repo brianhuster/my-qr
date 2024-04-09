@@ -185,6 +185,10 @@ function startScan() {
         button.classList.add('checked');
         button.classList.remove('unchecked');
         button.innerHTML="Tắt camera";
+        let overlays = document.querySelectorAll('#overlay');
+        overlays.forEach(overlay => {
+        console.log(overlay.getAttribute('class'));
+        });
     
         function stopScan(){
             qrScanner.pause();
