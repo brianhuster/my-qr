@@ -264,7 +264,9 @@ function handle_result(str) {
         for (var i = 1; i < fields.length; i += 2) {
             wifi[fields[i]] = fields[i + 1];
         }
-
+        if (wifi['S'] === '' ) {
+            return `<pre><code>${str}</code></pre>`;
+        }
         return `<pre><code>${str}</code></pre>
                 <p>Đây có vẻ là một mã QR wifi. Thông tin chi tiết như sau</p>
                 <p>Tên đăng nhập : <code>${wifi.S}</code></p>
