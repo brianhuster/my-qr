@@ -190,8 +190,9 @@ function startScan() {
             console.log(overlay.innerHTML);
         });
     
-        function stopScan(){
-            qrScanner.pause();
+        async function stopScan(){
+            button.onclick=null;
+            await qrScanner.stop();
             video.style.display = 'none';
             let svgs = document.querySelectorAll('#result svg');
             svgs.forEach(svg => {
@@ -208,7 +209,6 @@ function startScan() {
         }
         window.addEventListener('hashchange', function() {
             stopScan();
-            qrScanner.stop();
         }); 
     })
     .catch(function(err) {

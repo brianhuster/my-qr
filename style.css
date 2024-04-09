@@ -132,7 +132,7 @@ input[type=number] {
 -moz-appearance: textfield;
 appearance: textfield;
 }
-#result, video {
+#result {
   width: 100%;
   text-align: center;
   padding: 30px;
@@ -161,7 +161,7 @@ footer {
   body {
       font-size: 15px; 
   }
-  input, select, textarea, video, result {
+  input, select, textarea, #result {
       width: 95%; 
       padding: 15px; 
   }
@@ -172,7 +172,24 @@ footer {
     justify-content: center;
   }
 }
+.scan-region-highlight-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  fill: none;
+  stroke: #e9b213;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: scaleAnimation 400ms infinite alternate ease-in-out;
+}
 
+@keyframes scaleAnimation {
+  0% { transform: scale(.98); }
+  100% { transform: scale(1.01); }
+}
 @media only screen and (max-width: 600px) {
   body {
       font-size: 12px; 
