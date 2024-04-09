@@ -50,6 +50,7 @@ function chooseMode(id){
             } else {
                 button.classList.add('unchecked');
                 button.classList.remove('checked');
+                console.log(button.classList);
             }
         });
         const forms = document.querySelectorAll('#input div');
