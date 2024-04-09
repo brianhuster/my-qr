@@ -187,7 +187,7 @@ function startScan() {
         button.innerHTML="Tắt camera";
         let overlays = document.querySelectorAll('#overlay');
         overlays.forEach(overlay => {
-        console.log(overlay.getAttribute('class'));
+            console.log(overlay.innerHTML);
         });
     
         function stopScan(){
