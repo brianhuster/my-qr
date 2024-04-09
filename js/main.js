@@ -193,6 +193,10 @@ function startScan() {
         function stopScan(){
             qrScanner.pause();
             video.style.display = 'none';
+            let svgs = document.querySelectorAll('#result svg');
+            svgs.forEach(svg => {
+                svg.style.display = 'none';
+            });
             hide('switchCamera');
             button.classList.add('unchecked');
             button.classList.remove('checked');
