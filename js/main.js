@@ -11,8 +11,6 @@ function handleHashChange() {
     chooseMode(hash);
 }
 
-let lastFocusedButton = null;
-
 window.onload = async function() {
     handleHashChange();
     if (!QrScanner.hasCamera()) {
@@ -111,7 +109,7 @@ function createQR(option)
         var pass=document.getElementById("pass").value;
         var security=document.getElementById("security").value;
         var hidden=document.getElementById("hidden").checked;
-        var text=`WIFI:T:${security};S:${ssid};P:${pass};H:${hidden};;`;
+        var text=`WIFI:T:${security};S:${ssid};P:${pass};H:${hidden};`;
         var correction=document.getElementById("wifi_correction").value;
         createQrWithText(text, correction);
     }
@@ -184,11 +182,11 @@ async function startScan() {
         button.classList.remove('unchecked');
         button.innerHTML="Tắt camera";
         button.onclick=function(){
-            stopScan();
-        }
-        window.addEventListener('hashchange', function() {
-            stopScan();
-        }); 
+        stopScan();
+    }
+    window.addEventListener('hashchange', function() {
+        stopScan();
+    }); 
 
     }
     catch (error) {
@@ -253,7 +251,7 @@ function isURL(str){
 }
 
 function handle_result(str) {
-    if (str.startsWith("WIFI:") && str.endsWith(";;")) {
+    if (str.startsWith("WIFI:") && str.endsWith(";")) {
         var wifiInfo = str.slice(5, -2); // Remove "WIFI:" prefix and ";;" suffix
         var fields = wifiInfo.split(/;(T|P|H|S):/); // Split on field separators
         var wifi = {
@@ -269,8 +267,8 @@ function handle_result(str) {
 
         return `<pre><code>${str}</code></pre>
                 <p>Đây có vẻ là một mã QR wifi. Thông tin chi tiết như sau</p>
-                <p>Tên đăng nhập : ${wifi.S}</p>
-                <p>Mật khẩu : ${wifi.P}</p>
+                <p>Tên đăng nhập : <code>${wifi.S}</code></p>
+                <p>Mật khẩu : <code>${wifi.P}</code></p>
                 <p>Bảo mật : ${wifi.T}</p>
                 <p>Mạng ẩn : ${wifi.H === 'true' ? 'Có' : 'Không'}</p>`;
     } 
