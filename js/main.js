@@ -165,7 +165,6 @@ function startScan() {
         });
     })
     var video = document.getElementById('camera');
-    video.style.display = 'block';
     navigator.mediaDevices.getUserMedia({ video: true })
     .then(function(stream) {
         const qrScanner = new QrScanner(
@@ -178,46 +177,35 @@ function startScan() {
                 returnDetailedScanResult:true,
             }
         );
+        video.style.display = 'block';
+        qrScanner.setInversionMode('both');
+    
+        qrScanner.start();
+        var button = document.getElementById('scan_button');
+        button.classList.add('checked');
+        button.classList.remove('unchecked');
+        button.innerHTML="Tắt camera";
+    
+        function stopScan(){
+            qrScanner.pause();
+            video.style.display = 'none';
+            hide('switchCamera');
+            button.classList.add('unchecked');
+            button.classList.remove('checked');
+            button.innerHTML="Bắt đầu quét qua camera";
+            button.onclick=function(){startScan()}
+        }
+        button.onclick=function(){
+            stopScan();
+        }
+        window.addEventListener('hashchange', function() {
+            stopScan();
+            qrScanner.stop();
+        }); 
     })
     .catch(function(err) {
-        alert('Có lỗi với việc xin quyền truy cập camera');
-        return;
+        alert('Có lỗi với việc xin quyền truy cập camera. Bạn vẫn có thể upload ảnh để quét QR');
     });
-
-    const qrScanner = new QrScanner(
-        video,
-        result => updateQrResult(result.data),
-        {   
-            maxScansPerSecond: 10,
-            highlightScanRegion:true,
-            highlightCodeOutline:true,
-            returnDetailedScanResult:true,
-        }
-    );
-    
-    qrScanner.setInversionMode('both');
-
-    qrScanner.start();
-    var button = document.getElementById('scan_button');
-    button.classList.add('checked');
-    button.classList.remove('unchecked');
-    button.innerHTML="Tắt camera";
-
-    function stopScan(){
-        qrScanner.stop();
-        video.style.display = 'none';
-        hide('switchCamera');
-        button.classList.add('unchecked');
-        button.classList.remove('checked');
-        button.innerHTML="Bắt đầu quét qua camera";
-        button.onclick=function(){startScan()}
-    }
-    button.onclick=function(){
-        stopScan();
-    }
-    window.addEventListener('hashchange', function() {
-        stopScan();
-    }); 
 }
 
 document.getElementById('input_img').addEventListener('change', function() {
