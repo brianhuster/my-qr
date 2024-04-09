@@ -40,7 +40,8 @@
 				<div id="bank" onload="getAllBanks()">
 					<form>
 						<label for="ngan_hang"><span>Ngân hàng</span><span style="color:crimson">*</span></label>
-						<select id="ngan_hang"></select><br><br>
+						<input list="banks_list" id="ngan_hang">
+						<datalist id="banks_list"></datalist><br><br>
 						<label for="STK"><span>Số tài khoản</span><span style="color:crimson">*</span></label>
 						<input type="number" id="STK" placeholder="Vui lòng kiểm tra kỹ số tài khoản"><br><br>
 						<label for="hovaten">Họ và tên</label>

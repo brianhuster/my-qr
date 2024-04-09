@@ -150,10 +150,11 @@ async function getAllBanks(){
     list=response.data;
     console.log(list);
     list.sort((a, b) => a.shortName.localeCompare(b.shortName));
-    var selectBox = document.getElementById('ngan_hang');
+    var selectBox = document.getElementById('banks_list');
     for(var i = 0; i < list.length; i++){
-        var option = list[i].shortName;
-        selectBox.options.add(new Option(option, option, false));
+        var option = document.createElement('option');
+        option.value = list[i].shortName;
+        selectBox.appendChild(option);
     }
 } 
 
