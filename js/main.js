@@ -13,11 +13,12 @@ function handleHashChange() {
 
 let lastFocusedButton = null;
 
-window.onload = function() {
-    if (!QrScanner.hasCamera()) hide('scanButton');
+window.onload = async function() {
     handleHashChange();
-};
-
+    if (!QrScanner.hasCamera()) {
+        alert('Trình duyệt của bạn không hỗ trợ quét mã QR qua camera');
+    }
+}
 window.addEventListener('hashchange', function() {
     handleHashChange();
 });
@@ -165,6 +166,23 @@ function startScan() {
     })
     var video = document.getElementById('camera');
     video.style.display = 'block';
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+        const qrScanner = new QrScanner(
+            video,
+            result => updateQrResult(result.data),
+            {   
+                maxScansPerSecond: 10,
+                highlightScanRegion:true,
+                highlightCodeOutline:true,
+                returnDetailedScanResult:true,
+            }
+        );
+    })
+    .catch(function(err) {
+        alert('Có lỗi với việc xin quyền truy cập camera');
+        return;
+    });
 
     const qrScanner = new QrScanner(
         video,
@@ -176,6 +194,7 @@ function startScan() {
             returnDetailedScanResult:true,
         }
     );
+    
     qrScanner.setInversionMode('both');
 
     qrScanner.start();
@@ -238,16 +257,27 @@ function isURL(str){
 }
 
 function handle_result(str) {
-    var wifiRegex = /^WIFI:T:(WPA|WEP|nopass);S:(.+);P:(.+);H:(true|false);;$/;
-    var match = str.match(wifiRegex);
-    if (match) {
+    if (str.startsWith("WIFI:") && str.endsWith(";;")) {
+        var wifiInfo = str.slice(5, -2); // Remove "WIFI:" prefix and ";;" suffix
+        var fields = wifiInfo.split(/;(T|P|H|S):/); // Split on field separators
+        var wifi = {
+            T: null,
+            P: null,
+            H: null,
+            S: null
+        };
+
+        for (var i = 1; i < fields.length; i += 2) {
+            wifi[fields[i]] = fields[i + 1];
+        }
+
         return 
             `<pre><code>${str}</code></pre>
              <p>Đây có vẻ là một mã QR wifi. Thông tin chi tiết như sau</p>
-             <p>Tên đăng nhập : ${match[2]}</p>
-             <p>Mật khẩu : ${match[3]}</p>
-             <p>Bảo mật : ${match[1]}</p>
-             <p>Mạng ẩn : ${match[4] === 'true' ? 'Có' : 'Không'}</p>`;
+             <p>Tên đăng nhập : ${wifi.S}</p>
+             <p>Mật khẩu : ${wifi.P}</p>
+             <p>Bảo mật : ${wifi.T}</p>
+             <p>Mạng ẩn : ${wifi.H === 'true' ? 'Có' : 'Không'}</p>`;
     } 
     else if (isURL(str)) {
         var url = str;
