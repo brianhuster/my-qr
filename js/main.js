@@ -196,7 +196,6 @@ async function startScan() {
         return;
     }
     async function stopScan(){
-        await qrScanner.stop();
         const mediaStream = video.srcObject;
         if (mediaStream instanceof MediaStream) {
             const tracks = mediaStream.getTracks();
