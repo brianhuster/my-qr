@@ -267,13 +267,12 @@ function handle_result(str) {
             wifi[fields[i]] = fields[i + 1];
         }
 
-        return 
-            `<pre><code>${str}</code></pre>
-             <p>Đây có vẻ là một mã QR wifi. Thông tin chi tiết như sau</p>
-             <p>Tên đăng nhập : ${wifi.S}</p>
-             <p>Mật khẩu : ${wifi.P}</p>
-             <p>Bảo mật : ${wifi.T}</p>
-             <p>Mạng ẩn : ${wifi.H === 'true' ? 'Có' : 'Không'}</p>`;
+        return `<pre><code>${str}</code></pre>
+                <p>Đây có vẻ là một mã QR wifi. Thông tin chi tiết như sau</p>
+                <p>Tên đăng nhập : ${wifi.S}</p>
+                <p>Mật khẩu : ${wifi.P}</p>
+                <p>Bảo mật : ${wifi.T}</p>
+                <p>Mạng ẩn : ${wifi.H === 'true' ? 'Có' : 'Không'}</p>`;
     } 
     else if (isURL(str)) {
         var url = str;
