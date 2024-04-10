@@ -169,9 +169,9 @@ const qrScanner = new QrScanner(
         returnDetailedScanResult:true,
     }
 );
+console.log(qrScanner);
 qrScanner.setInversionMode('both');
 async function startScan() {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     try {
         await qrScanner.start();
         hide('scan_button');
@@ -190,6 +190,7 @@ async function startScan() {
 async function stopScan(){
     await qrScanner.stop();
     const mediaStream = camera.srcObject;
+    console.log('mediaStream:', mediaStream);
     if (mediaStream instanceof MediaStream) {
         const tracks = mediaStream.getTracks();
         tracks.forEach(track => {
