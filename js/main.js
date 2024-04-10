@@ -176,9 +176,9 @@ async function startScan() {
             console.log(camera);
         });
     })
-    camera.style.display = 'block';
     try {
         await qrScanner.start();
+        camera.style.display = 'block';
         hide('scan_button');
         display('stop_scan');
     }
