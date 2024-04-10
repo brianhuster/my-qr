@@ -26,9 +26,9 @@
 				<div id="text">
 					<textarea id="input_text" rows="4" style="margin-bottom: 20px;" placeholder="Nhập nội dung cần tạo mã QR"></textarea>
 					<br>
-					<label for="correction">Khả năng tự phục hồi</label>
+					<label for="text_correction">Khả năng tự phục hồi</label>
 					<br>
-					<select id="correction" style="padding: 6p;">
+					<select id="text_correction" style="padding: 6p;">
 						<option value="L">Thấp (tối đa 7%, phù hợp chia sẻ qua mạng)</option>
 						<option value="M">Trung bình (tối đa 15%, hợp cho hầu hết mục đích chung)</option>
 						<option value="Q">Trung bình cao (tối đa 25%, hợp cho môi trường dễ dính bẩn)</option>
@@ -47,7 +47,7 @@
 						<label for="hovaten">Họ và tên</label>
 						<input type="text" id="hovaten"><br><br>
 						<label for="ndck">Nội dung chuyển khoản</label>
-						<input type="text" id="ndcl"><br><br>
+						<input type="text" id="ndck"><br><br>
 						<label for="sotien">Số tiền</label>
 						<input type="number" id="sotien"><br><br>
 						<p><span style="color:crimson">*</span> là trường bắt buộc</p>
@@ -84,17 +84,16 @@
 
 		<div id="scanner" style="display:none;">
 			<h3>Tính năng quét QR qua camera đang trong giai đoạn phát triển nên có thể xảy ra lỗi</h3>
+			<label for="input_img">Chọn hình ảnh từ bộ nhớ</label>
+			<input id="input_img" type="file" accept="image/*">
 			<button id="scan_button" type="button" class="unchecked" onclick="startScan()">Bắt đầu quét qua camera</button>
 			<button id="stop_scan" type="button" class="checked" style="display: none;" onclick="stopScan()">Tắt camera</button>
 			<button id="switchCamera" style="display: none;">Chuyển camera</button>
 			<br>
-			<video id="camera" style="display: none;"></video>
-			<br>
-			<label for="input_img">Hoặc chọn hình ảnh từ bộ nhớ</label>
-			<input id="input_img" type="file" accept="image/*">
+			<video id="camera"></video>
 		</div>
 
-		<div id="result" style="display: none;"></div>
+		<div id="output" style="display: none;"></div>
     	<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
 		<script src="js/qr-maker.min.js"></script>
 		<script src="js/qr-scanner.umd.min.js"></script>

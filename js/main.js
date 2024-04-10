@@ -1,4 +1,42 @@
-function handleHashChange() {
+
+const text_button = document.getElementById('text_button');
+const bank_button = document.getElementById('bank_button');
+const wifi_button = document.getElementById('wifi_button');
+const input_text = document.getElementById('input_text');
+const text_correction = document.getElementById('text_correction');
+const bank = document.getElementById('bank');
+const banks_list = document.getElementById('banks_list');
+const STK = document.getElementById('STK');
+const hovaten = document.getElementById('hovaten');
+const ndck = document.getElementById('ndck');
+const sotien = document.getElementById('sotien');
+const ssid = document.getElementById('ssid');
+const pass = document.getElementById('pass');
+const security = document.getElementById('security');
+const hidden = document.getElementById('hidden');
+const wifi_correction = document.getElementById('wifi_correction');
+const scan_button = document.getElementById('scan_button');
+const stop_scan = document.getElementById('stop_scan');
+const switchCamera = document.getElementById('switchCamera');
+const camera = document.getElementById('camera');
+const input_img = document.getElementById('input_img');
+const output = document.getElementById('output');
+const download = document.getElementById('download');
+const scanner=document.getElementById('scanner');
+const qrScanner = new QrScanner(
+    camera,
+    result => updateQrResult(result.data),
+    {   
+        maxScansPerSecond: 5,
+        highlightScanRegion:true,
+        highlightCodeOutline:true,
+        returnDetailedScanResult:true
+    }
+);
+qrScanner.setInversionMode('both');
+
+//Bắt đầu viết các hàm
+function handleHashChange() { //hàm xử lý khi có thay đổi đường link
     var hash = window.location.hash.substr(1);
     if (!hash) {
         hash = 'text';
@@ -13,35 +51,29 @@ function handleHashChange() {
 
 window.onload = async function() {
     handleHashChange();
-    if (!QrScanner.hasCamera()) {
-        alert('Trình duyệt của bạn không hỗ trợ quét mã QR qua camera');
-    }
 }
 window.addEventListener('hashchange', function() {
     handleHashChange();
 });
 
-function display(ID)
+function display(element)
 {
-    var element = document.getElementById(ID);
     if (element.style.display == 'none') {
         element.style.display = 'block';
     }
 }
-function hide(ID)
+function hide(element)
 {   
-    var element = document.getElementById(ID);
     if (element.style.display !== 'none') {
         element.style.display = 'none';
     }
 }
 
 function chooseMode(id){
-    hide('result'); hide('download'); 
+    hide(output); hide(download); 
     if (id!="scanner"){
-        hide('scanner');
-        display("maker");
-        display(id);
+        hide(scanner);
+        display(maker);
         const buttons = document.querySelectorAll('#modes button');
         buttons.forEach(button => {
             if (button.id === id + '_button') {
@@ -50,23 +82,22 @@ function chooseMode(id){
             } else {
                 button.classList.add('unchecked');
                 button.classList.remove('checked');
-                console.log(button.classList);
             }
         });
         const forms = document.querySelectorAll('#input div');
         forms.forEach(form => {
             if (form.id === id) {
-                form.style.display = 'block';
+                display(form);
             } else {
-                form.style.display = 'none';
+                hide(form);
             }
         });
-        document.title = 'Tạo mã QR miễn phí'
+        document.title = 'Tạo mã QR miễn phí';
     }
     else{
-        display("scanner");
-        hide("maker");
-        document.title = 'Quét mã QR'
+        display(scanner);
+        hide(maker);
+        document.title = 'Quét mã QR';
     }
 }
 
@@ -74,8 +105,9 @@ function createQrWithText(content, correction){
     if (correction=="L") correctLevel=QRCode.CorrectLevel.L;
     else if (correction=="M") correctLevel=QRCode.CorrectLevel.M;
     else if (correction=="Q") correctLevel=QRCode.CorrectLevel.Q;
-    else correctLevel=QRCode.CorrectLevel.H;
-    var result = new QRCode("result", {
+    else if (correction=="H") correctLevel=QRCode.CorrectLevel.H;
+    else correctLevel=QRCode.CorrectLevel.M;
+    var output = new QRCode("output", {
         text: content,
         width:480,
         height:480,
@@ -85,44 +117,36 @@ function createQrWithText(content, correction){
     });
 }
 function createQR(option)
-{
-    display("result");
-    var img=document.getElementById("result");
-    img.innerHTML='';
+{   
+    display(output);
+    output.innerHTML='';
     if (option=="text"){
-        var content=document.getElementById("input_text").value;
-        var correction=document.getElementById("correction").value;
-        createQrWithText(content, correction);
+        createQrWithText(input_text.value, text_correction.value);
     }
     else if (option=="bank"){
-        var ngan_hang=document.getElementById("ngan_hang").value;
+        var bank=document.getElementById("bank").value;
         var STK=document.getElementById("STK").value;
         var hovaten=document.getElementById("hovaten").value;
-        var ndcl=document.getElementById("ndcl").value;
+        var ndck=document.getElementById("ndck").value;
         var sotien=document.getElementById("sotien").value;
-        var link=`https://img.vietqr.io/image/${ngan_hang}-${STK}-print.png?amount=${sotien}&addInfo=${ndcl}&accountName=${hovaten}`;
+        var link=`https://img.vietqr.io/image/${bank}-${STK}-print.png?amount=${sotien}&addInfo=${ndck}&accountName=${hovaten}`;
         console.log(link);
-        img.innerHTML=`<img src="${link}" alt="QR code">`;
+        output.innerHTML=`<img src="${link}" alt="QR code">`;
         console.log(img);
     }
     else if (option=="wifi"){
-        var ssid=document.getElementById("ssid").value;
-        var pass=document.getElementById("pass").value;
-        var security=document.getElementById("security").value;
-        var hidden=document.getElementById("hidden").checked;
-        var text=`WIFI:T:${security};S:${ssid};P:${pass};H:${hidden};`;
-        var correction=document.getElementById("wifi_correction").value;
-        createQrWithText(text, correction);
+        var text=`WIFI:S:${ssid.value};P:${pass.value};T:${security.value};H:${hidden.checked};`;
+        createQrWithText(text, wifi_correction.value);
     }
-    display("result");
-    display("download");
+    display(result);
+    display(download);
     img.querySelector('img').onload = function() {
-        document.getElementById("download").scrollIntoView({behavior: "smooth"});
+        download.scrollIntoView({behavior: "smooth"});
     }
 }
 function downloadQR()
 {
-    var canvas = document.getElementById("result").querySelector('canvas');
+    var canvas = output.querySelector('canvas');
     var img = canvas.toDataURL("image/png");
     var a = document.createElement('a');
     a.href = img;
@@ -142,7 +166,6 @@ async function getJSON(link){
     }
     catch (error) {
         throw new Error("Cannot connect to " + link);
-        alert("Cannot connect to "+link);
     }
 }   
 async function getAllBanks(){
@@ -150,34 +173,19 @@ async function getAllBanks(){
     list=response.data;
     console.log(list);
     list.sort((a, b) => a.shortName.localeCompare(b.shortName));
-    var selectBox = document.getElementById('banks_list');
     for(var i = 0; i < list.length; i++){
         var option = document.createElement('option');
         option.value = list[i].shortName;
-        selectBox.appendChild(option);
+        banks_list.appendChild(option);
     }
 } 
 
-const camera = document.getElementById('camera');
-const qrScanner = new QrScanner(
-    camera,
-    result => updateQrResult(result.data),
-    {   
-        maxScansPerSecond: 5,
-        highlightScanRegion:true,
-        highlightCodeOutline:true,
-        returnDetailedScanResult:true,
-    }
-);
-console.log(qrScanner);
-qrScanner.setInversionMode('both');
 async function startScan() {
     try {
         await qrScanner.start();
-        hide('scan_button');
-        display('stop_scan');
-        camera.style.display = 'block';
-        console.log('Camera stream:', camera.srcObject); 
+        hide(scan_button);
+        display(stop_scan);
+        display(camera);
     }
     catch (error) {
         alert("Không thể mở camera");
@@ -186,7 +194,6 @@ async function startScan() {
     window.addEventListener('hashchange', function() {
         stopScan();
     }); 
-    console.log(camera.style.display);
 }
 async function stopScan(){
     await qrScanner.stop();
@@ -199,12 +206,12 @@ async function stopScan(){
         });
         camera.srcObject = null;
     }
-    camera.style.display = 'none';
-    hide('stop_scan');
-    display('scan_button');
+    hide(camera);
+    hide(stop_scan);
+    display(scan_button);
 }
 
-document.getElementById('input_img').addEventListener('change', function() {
+input_img.addEventListener('change', function() {
     var file = this.files[0]; 
     var reader = new FileReader();
 
@@ -221,11 +228,10 @@ document.getElementById('input_img').addEventListener('change', function() {
 });
 
 function updateQrResult(result){
-    var output = document.getElementById('result');
     if (result=="") result="Không tìm thấy mã QR";
     else result=`Kết quả quét QR : ${handle_result(result)}`;
     output.innerHTML = result;
-    output.style.display = 'block';
+    display(output);
     output.scrollIntoView({ behavior: 'smooth' });
 }
 
