@@ -4,6 +4,7 @@ const bank_button = document.getElementById('bank_button');
 const wifi_button = document.getElementById('wifi_button');
 const textarea = document.getElementById('textarea');
 const text_correction = document.getElementById('text_correction');
+const ngan_hang = document.getElementById('ngan_hang');
 const bank = document.getElementById('bank');
 const banks_list = document.getElementById('banks_list');
 const STK = document.getElementById('STK');
@@ -128,12 +129,7 @@ function createQR(option)
         createQrWithText(textarea.value, text_correction.value);
     }
     else if (option=="bank"){
-        var bank=document.getElementById("bank").value;
-        var STK=document.getElementById("STK").value;
-        var hovaten=document.getElementById("hovaten").value;
-        var ndck=document.getElementById("ndck").value;
-        var sotien=document.getElementById("sotien").value;
-        var link=`https://img.vietqr.io/image/${bank}-${STK}-print.png?amount=${sotien}&addInfo=${ndck}&accountName=${hovaten}`;
+        const link=`https://img.vietqr.io/image/${ngan_hang.value}-${STK.value}-print.png?amount=${sotien.value}&addInfo=${ndck.value}&accountName=${hovaten.value}`;
         console.log(link);
         output.innerHTML=`<img src="${link}" alt="QR code">`;
     }
@@ -143,7 +139,7 @@ function createQR(option)
     }
     display(output);
     display(download);
-    img.querySelector('img').onload = function() {
+    output.querySelector('img').onload = function() {
         download.scrollIntoView({behavior: "smooth"});
     }
 }
