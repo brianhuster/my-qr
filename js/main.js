@@ -138,8 +138,8 @@ function createQR(option)
         createQrWithText(text, wifi_correction.value);
     }
     display(output);
-    display(download);
     output.querySelector('img').onload = function() {
+        display(download);
         download.scrollIntoView({behavior: "smooth"});
     }
 }
