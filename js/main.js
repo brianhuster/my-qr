@@ -171,6 +171,7 @@ const qrScanner = new QrScanner(
 );
 qrScanner.setInversionMode('both');
 async function startScan() {
+    camera.style.display = 'block';
     QrScanner.listCameras().then(cameras => {
         cameras.forEach(camera => {
             console.log(camera);
@@ -178,7 +179,6 @@ async function startScan() {
     })
     try {
         await qrScanner.start();
-        camera.style.display = 'block';
         hide('scan_button');
         display('stop_scan');
     }
