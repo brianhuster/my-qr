@@ -177,6 +177,7 @@ async function startScan() {
         hide('scan_button');
         display('stop_scan');
         camera.style.display = 'block';
+        console.log('Camera stream:', camera.srcObject); 
     }
     catch (error) {
         alert("Không thể mở camera");
@@ -241,8 +242,8 @@ function isURL(str){
 
 function handle_result(str) {
     if (str.startsWith("WIFI:") && str.endsWith(";")) {
-        var wifiInfo = str.slice(5, -1); // Remove "WIFI:" prefix and ";" suffix
-        var fields = wifiInfo.split(/;(T|P|H|S):/); // Split on field separators
+        var wifiInfo = str.slice(5, -1);
+        var fields = wifiInfo.split(/;(T|P|H|S):/); 
         var wifi = {
             T: null,
             P: null,
