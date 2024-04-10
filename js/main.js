@@ -171,16 +171,12 @@ const qrScanner = new QrScanner(
 );
 qrScanner.setInversionMode('both');
 async function startScan() {
-    camera.style.display = 'block';
-    QrScanner.listCameras().then(cameras => {
-        cameras.forEach(camera => {
-            console.log(camera);
-        });
-    })
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     try {
         await qrScanner.start();
         hide('scan_button');
         display('stop_scan');
+        camera.style.display = 'block';
     }
     catch (error) {
         alert("Không thể mở camera");
