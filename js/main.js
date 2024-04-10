@@ -197,15 +197,15 @@ async function startScan() {
 }
 async function stopScan(){
     await qrScanner.stop();
-    const mediaStream = camera.srcObject;
-    console.log('mediaStream:', mediaStream);
-    if (mediaStream instanceof MediaStream) {
-        const tracks = mediaStream.getTracks();
-        tracks.forEach(track => {
-            track.stop();
-        });
-        camera.srcObject = null;
-    }
+    // const mediaStream = camera.srcObject;
+    // console.log('mediaStream:', mediaStream);
+    // if (mediaStream instanceof MediaStream) {
+    //     const tracks = mediaStream.getTracks();
+    //     tracks.forEach(track => {
+    //         track.stop();
+    //     });
+    //     camera.srcObject = null;
+    // }
     hide(camera);
     hide(stop_scan);
     display(scan_button);
