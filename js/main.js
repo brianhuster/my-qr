@@ -136,13 +136,12 @@ function createQR(option)
         var link=`https://img.vietqr.io/image/${bank}-${STK}-print.png?amount=${sotien}&addInfo=${ndck}&accountName=${hovaten}`;
         console.log(link);
         output.innerHTML=`<img src="${link}" alt="QR code">`;
-        console.log(img);
     }
     else if (option=="wifi"){
         var text=`WIFI:S:${ssid.value};P:${pass.value};T:${security.value};H:${hidden.checked};`;
         createQrWithText(text, wifi_correction.value);
     }
-    display(result);
+    display(output);
     display(download);
     img.querySelector('img').onload = function() {
         download.scrollIntoView({behavior: "smooth"});
