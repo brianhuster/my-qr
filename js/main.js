@@ -2,7 +2,7 @@
 const text_button = document.getElementById('text_button');
 const bank_button = document.getElementById('bank_button');
 const wifi_button = document.getElementById('wifi_button');
-const input_text = document.getElementById('input_text');
+const textarea = document.getElementById('textarea');
 const text_correction = document.getElementById('text_correction');
 const bank = document.getElementById('bank');
 const banks_list = document.getElementById('banks_list');
@@ -34,7 +34,7 @@ const qrScanner = new QrScanner(
     }
 );
 qrScanner.setInversionMode('both');
-
+let gotAllBanks = false;
 //Bắt đầu viết các hàm
 function handleHashChange() { //hàm xử lý khi có thay đổi đường link
     var hash = window.location.hash.substr(1);
@@ -42,7 +42,7 @@ function handleHashChange() { //hàm xử lý khi có thay đổi đường link
         hash = 'text';
         window.location.hash = hash;
     }
-    else if (hash == 'bank') {
+    else if (hash == 'bank' && !gotAllBanks) {
         getAllBanks();
     }
     console.log("add hash 'text' to url");
@@ -101,6 +101,10 @@ function chooseMode(id){
     }
 }
 
+textarea.addEventListener('input', function() {
+    this.style.height = this.scrollHeight + 'px';
+});
+
 function createQrWithText(content, correction){
     if (correction=="L") correctLevel=QRCode.CorrectLevel.L;
     else if (correction=="M") correctLevel=QRCode.CorrectLevel.M;
@@ -121,7 +125,7 @@ function createQR(option)
     display(output);
     output.innerHTML='';
     if (option=="text"){
-        createQrWithText(input_text.value, text_correction.value);
+        createQrWithText(textarea.value, text_correction.value);
     }
     else if (option=="bank"){
         var bank=document.getElementById("bank").value;
@@ -178,6 +182,7 @@ async function getAllBanks(){
         option.value = list[i].shortName;
         banks_list.appendChild(option);
     }
+    gotAllBanks = true;
 } 
 
 async function startScan() {
