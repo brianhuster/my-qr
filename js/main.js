@@ -231,12 +231,12 @@ function updateQrResult(result){
                 content: 'swal-content'
             },
             footer: '<button id="copyButton" class="swal2-confirm swal2-styled">Copy</button>'}).then(() => {
-                document.getElementById('#copyButton').addEventListener('click', function() {
+                var copyButton=document.getElementById('copyButton').addEventListener('click', function() {
                     var parser = new DOMParser();
                     var resultDoc = parser.parseFromString(result, 'text/html');
                     var codeContent = resultDoc.querySelector('code').textContent;
                     navigator.clipboard.writeText(codeContent).then(() => {
-                        document.getElementById('copyButton').textContent = '✔️Đã copy';
+                        copyButton.textContent = '✔️Đã copy';
                     });
                 });
           });
