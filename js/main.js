@@ -225,7 +225,7 @@ function updateQrResult(result){
             title: '<strong>Kết quả quét QR</strong>',
             html: result,
             showCloseButton: true,
-            showCancelButton: true,
+            showConfirmButton: false,
             focusConfirm: false,
             customClass: {
                 content: 'swal-content'
