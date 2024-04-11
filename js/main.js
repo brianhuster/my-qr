@@ -43,6 +43,7 @@ qrScanner.setInversionMode('both');
 let gotAllBanks = false;
 //Bắt đầu viết các hàm
 function handleHashChange() { //hàm xử lý khi có thay đổi đường link
+    output.innerHTML = '';
     var hash = window.location.hash.substr(1);
     if (!hash) {
         hash = 'text';
@@ -217,27 +218,31 @@ input_img.addEventListener('change', function() {
 });
 
 function updateQrResult(result){
-    console.log(result);
-    if (!result || result=="") result="Không tìm thấy mã QR";
-    else{ 
-        var time=new Date().toString();
+    if (result && result!=''){ 
+        var date=new Date();
+        var hours = date.getHours().toString().padStart(2, '0');
+        var minutes = date.getMinutes().toString().padStart(2, '0');
+        var seconds = date.getSeconds().toString().padStart(2, '0');
+        var day = date.getDate().toString().padStart(2, '0');
+        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+        var year = date.getFullYear();
+        var time = `${hours}:${minutes}:${seconds} ngày ${day}/${month}/${year}`;
         result=`Kết quả quét QR : ${handle_result(result)}<br>Thời điểm phát hiện QR : ${time}`;
+        output.innerHTML = result;
+        display(output);
+        output.scrollIntoView({ behavior: 'smooth' });
     }
-    output.innerHTML = result;
-    console.log(output.innerHtmL)
-    display(output);
-    output.scrollIntoView({ behavior: 'smooth' });
+    console.log(output.innerHTML);
 }
 
-function isURL(str){
-    var urlRegex = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?'+ // port
-        '(\\/[-a-z\\d%_.~+]*)*'+ // path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return urlRegex.test(str);
+const isURL = urlString=> {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+        '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+    return !!urlPattern.test(urlString);
 }
 
 function handle_result(str) {
