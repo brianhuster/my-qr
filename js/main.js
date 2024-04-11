@@ -233,6 +233,9 @@ function updateQrResult(result){
         output.scrollIntoView({ behavior: 'smooth' });
     }
     console.log(output.innerHTML);
+    if (output.innerHTML == '' || output.style.display == 'none') {
+        console.log('Không tìm thấy mã QR');
+    }
 }
 
 const isURL = urlString=> {
