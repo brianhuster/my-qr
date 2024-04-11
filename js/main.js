@@ -224,22 +224,19 @@ function updateQrResult(result){
         Swal.fire({
             title: '<strong>Kết quả quét QR</strong>',
             html: result,
-            showCloseButton: true,
-            showConfirmButton: false,
+            showCancelButton: true,
+            confirmButtonText: 'Copy', // Change the confirm button text to 'Copy'
             focusConfirm: false,
             customClass: {
                 content: 'swal-content'
             },
-            footer: '<button id="copyButton" class="swal2-confirm swal2-styled">Copy</button>'}).then(() => {
-                var copyButton=document.getElementById('copyButton').addEventListener('click', function() {
-                    var parser = new DOMParser();
-                    var resultDoc = parser.parseFromString(result, 'text/html');
-                    var codeContent = resultDoc.querySelector('code').textContent;
-                    navigator.clipboard.writeText(codeContent).then(() => {
-                        copyButton.textContent = '✔️Đã copy';
-                    });
-                });
-          });
+            preConfirm: () => { // Execute some code when the confirm button is clicked
+                var parser = new DOMParser();
+                var resultDoc = parser.parseFromString(result, 'text/html');
+                var codeContent = resultDoc.querySelector('code').textContent;
+                navigator.clipboard.writeText(codeContent);
+            }
+        });
     }
     console.log(output.innerHTML);
     if (!output.innerHTML || output.innerHTML == '' || output.style.display == 'none') {
