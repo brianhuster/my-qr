@@ -218,6 +218,7 @@ input_img.addEventListener('change', function() {
 });
 
 function updateQrResult(result){
+    display(output);
     if (result && result!=''){ 
         var date=new Date();
         var hours = date.getHours().toString().padStart(2, '0');
@@ -229,7 +230,6 @@ function updateQrResult(result){
         var time = `${hours}:${minutes}:${seconds} ngày ${day}/${month}/${year}`;
         result=`Kết quả quét QR : ${handle_result(result)}<br>Thời điểm phát hiện QR : ${time}`;
         output.innerHTML = result;
-        display(output);
         output.scrollIntoView({ behavior: 'smooth' });
     }
     console.log(output.innerHTML);
