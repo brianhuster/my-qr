@@ -174,7 +174,7 @@ textarea::-webkit-scrollbar {
       font-size: 15px; 
   }
   input, select, textarea, video, #result {
-      width: 95%; 
+      width: 90%; 
       padding: 15px; 
   }
   #modes {
