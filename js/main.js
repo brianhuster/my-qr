@@ -27,9 +27,7 @@ const download = document.getElementById('download');
 const scanner=document.getElementById('scanner');
 const qrScanner = new QrScanner(
     camera,
-    result => function(){
-        updateQrResult(result.data);
-    },
+    result => updateQrResult(result.data),
     {   
         onDecodeError: error => {
             output.innerHTML = error;
