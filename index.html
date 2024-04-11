@@ -35,7 +35,7 @@
 						<option value="H">Cao (tối đa 30%, phù hợp cho công nghiệp)</option>
 					</select><br><br>
 					<p>Khả năng tự phục hồi càng cao thì QR code càng khó bị hỏng do các yếu tố bên ngoài, nhưng lượng nội dung tối đa mã hóa được sẽ giảm</p>
-					<button type="button" onclick="createQR('text')">Tạo mã QR</button>
+					<button type="button">Tạo mã QR</button>
 				</div>
 				<div id="bank" onload="getAllBanks()">
 					<form>
@@ -52,7 +52,7 @@
 						<input type="number" id="sotien"><br><br>
 						<p><span style="color:crimson">*</span> là trường bắt buộc</p>
 					</form>
-					<button type="button" onclick="createQR('bank')">Tạo mã QR</button>
+					<button type="button">Tạo mã QR</button>
 				</div>
 				<div id="wifi" style="display:none;">
 					<label for="ssid">Tên Wifi</label>
@@ -77,7 +77,7 @@
 						<option value="H">Cao (tối đa 30%, phù hợp cho công nghiệp)</option>
 					</select><br><br>
 					<p>Khả năng tự phục hồi càng cao thì QR code càng khó bị hỏng do các yếu tố bên ngoài, nhưng lượng nội dung tối đa mã hóa được sẽ giảm</p>
-					<button type="button" onclick="createQR('wifi')">Tạo mã QR</button>
+					<button type="button">Tạo mã QR</button>
 				</div>
 			</div>
 		</div>
@@ -86,18 +86,18 @@
 			<h3>Tính năng quét QR qua camera đang trong giai đoạn phát triển nên có thể xảy ra lỗi</h3>
 			<label for="input_img">Chọn hình ảnh từ bộ nhớ</label>
 			<input id="input_img" type="file" accept="image/*">
-			<button id="scan_button" type="button" class="unchecked" onclick="startScan()">Bắt đầu quét qua camera</button>
-			<button id="stop_scan" type="button" class="checked" style="display: none;" onclick="stopScan()">Tắt camera</button>
+			<button id="scan_button" type="button" class="unchecked" >Bắt đầu quét qua camera</button>
+			<button id="stop_scan" type="button" class="checked" style="display: none;" >Tắt camera</button>
 			<button id="switchCamera" style="display: none;">Chuyển camera</button>
 			<br>
 			<video id="camera"></video>
 		</div>
 
 		<div id="output" style="display: none;"></div>
-    	<button id="download" type="button" onclick="downloadQR()" style="display: none">Tải xuống</button>
+    	<button id="download" type="button" style="display: none">Tải xuống</button>
 		<script src="js/qr-maker.min.js"></script>
-		<script src="js/qr-scanner.umd.min.js"></script>
-        <script src="js/main.js"></script>
+		<!-- <script src="js/qr-scanner.umd.min.js"></script>  -->
+        <script type="module" src="js/main.js"></script>
 	</body>
 	<footer>&copy; 2024 Phạm Bình An - <a href="https://github.com/brianhuster/my-qr/" style="color: white;">Mã nguồn</footer>
 </html>

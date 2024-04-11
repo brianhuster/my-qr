@@ -1,4 +1,4 @@
-
+import QrScanner from "../js/qr-scanner.min.js";
 const text_button = document.getElementById('text_button');
 const bank_button = document.getElementById('bank_button');
 const wifi_button = document.getElementById('wifi_button');
@@ -26,8 +26,14 @@ const download = document.getElementById('download');
 const scanner=document.getElementById('scanner');
 const qrScanner = new QrScanner(
     camera,
-    result => updateQrResult(result.data),
+    result => function(){
+        updateQrResult(result.data);
+    },
     {   
+        onDecodeError: error => {
+            output.innerHTML = error;
+            output.style.color = 'inherit';
+        },
         maxScansPerSecond: 5,
         highlightScanRegion:true,
         highlightCodeOutline:true,
@@ -49,13 +55,6 @@ function handleHashChange() { //hàm xử lý khi có thay đổi đường link
     console.log("add hash 'text' to url");
     chooseMode(hash);
 }
-
-window.onload = async function() {
-    handleHashChange();
-}
-window.addEventListener('hashchange', function() {
-    handleHashChange();
-});
 
 function display(element)
 {
@@ -107,6 +106,7 @@ textarea.addEventListener('input', function() {
 });
 
 function createQrWithText(content, correction){
+    var correctLevel;
     if (correction=="L") correctLevel=QRCode.CorrectLevel.L;
     else if (correction=="M") correctLevel=QRCode.CorrectLevel.M;
     else if (correction=="Q") correctLevel=QRCode.CorrectLevel.Q;
@@ -121,8 +121,7 @@ function createQrWithText(content, correction){
         correctLevel:correctLevel
     });
 }
-function createQR(option)
-{   
+function createQR(option){   
     display(output);
     output.innerHTML='';
     if (option=="text"){
@@ -169,7 +168,7 @@ async function getJSON(link){
 }   
 async function getAllBanks(){
     var response= await getJSON('https://api.vietqr.io/v2/banks');
-    list=response.data;
+    const list=response.data;
     console.log(list);
     list.sort((a, b) => a.shortName.localeCompare(b.shortName));
     for(var i = 0; i < list.length; i++){
@@ -219,7 +218,8 @@ input_img.addEventListener('change', function() {
 });
 
 function updateQrResult(result){
-    if (result=="") result="Không tìm thấy mã QR";
+    console.log(result);
+    if (!result || result=="") result="Không tìm thấy mã QR";
     else result=`Kết quả quét QR : ${handle_result(result)}`;
     output.innerHTML = result;
     display(output);
@@ -272,3 +272,23 @@ function handle_result(str) {
         return `<pre><code>${str}</code></pre>`;
     }
 }
+
+window.onload = async function() {
+    handleHashChange();
+}
+window.addEventListener('hashchange', function() {
+    handleHashChange();
+});
+document.getElementById('text_button').addEventListener('click', function() { changeMode('text'); });
+document.getElementById('bank_button').addEventListener('click', function() { changeMode('bank'); });
+document.getElementById('wifi_button').addEventListener('click', function() { changeMode('wifi'); });
+
+document.getElementById('scan_button').addEventListener('click', startScan);
+document.getElementById('stop_scan').addEventListener('click', stopScan);
+document.getElementById('switchCamera').addEventListener('click', switchCamera);
+
+document.querySelector('#text button').addEventListener('click', function() { createQR('text'); });
+document.querySelector('#bank button').addEventListener('click', function() { createQR('bank'); });
+document.querySelector('#wifi button').addEventListener('click', function() { createQR('wifi'); });
+
+document.getElementById('download').addEventListener('click', downloadQR);
