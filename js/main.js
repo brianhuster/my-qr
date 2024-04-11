@@ -225,7 +225,8 @@ function updateQrResult(result){
             title: '<strong>Kết quả quét QR</strong>',
             html: result,
             showCancelButton: true,
-            confirmButtonText: 'Copy', // Change the confirm button text to 'Copy'
+            cancelButtonText: 'Đóng',
+            confirmButtonText: 'Sao chép', // Change the confirm button text to 'Copy'
             focusConfirm: false,
             customClass: {
                 content: 'swal-content'
