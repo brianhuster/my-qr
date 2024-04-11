@@ -1,152 +1,175 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
-  font-family: 'roboto', sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
+    font-family: 'roboto', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
 }
+
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 h1 {
-  font-weight: 600;
-  background: linear-gradient(to right, #4568dc, #b06ab3);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  padding: 20px 0;
-  margin-right: 20px;
+    font-weight: 600;
+    background: linear-gradient(to right, #4568dc, #b06ab3);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    padding: 20px 0;
+    margin-right: 20px;
 }
 
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color:  #f7f7f7;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
 }
 
 li {
-  float: left;
+    float: left;
 }
 
 li a {
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  font-size:20px
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 20px
 }
 
 li a:hover {
-  color: #4568dc;
+    color: #4568dc;
 }
 
 button {
-  background-color: #007BFF; 
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  margin: 10px;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    margin: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
+
 #modes {
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-wrap: wrap;
 }
+
 button:hover {
-  transition: all 0.3s ease;
-  background-color: #0056b3; 
-  transform: translateY(-2px);
-  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-}
-#modes button, #scanner button{
-  border-radius: 5px;
-  margin: 5px;
-  padding: 12px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-#modes .unchecked, #scanner .unchecked {
-  background-color: white;
-  color: green;
-}
-#modes .unchecked:hover, #scanner .unchecked:hover {
-    background-color: #04AA6D ;
-    color: white ;
     transition: all 0.3s ease;
-  }
-#modes .checked, #scanner .checked {
-    background-color: #04AA6D ;
-    color: white ;
-  }
-#textQR, #bankQR {
-  background-color: #fff;
-  padding: 30px;
-  margin: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 0px 0 0px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
+#modes button,
+#scanner button {
+    border-radius: 5px;
+    margin: 5px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-input[type=text]:focus, input[type=number]:focus, select:focus {
-  border-color: #b06ab3;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(176, 106, 179, 0.2);
+#modes .unchecked,
+#scanner .unchecked {
+    background-color: white;
+    color: green;
 }
+
+#modes .unchecked:hover,
+#scanner .unchecked:hover {
+    background-color: #04AA6D;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+#modes .checked,
+#scanner .checked {
+    background-color: #04AA6D;
+    color: white;
+}
+
+#textQR,
+#bankQR {
+    background-color: #fff;
+    padding: 30px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 0px 0 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+select:focus {
+    border-color: #b06ab3;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(176, 106, 179, 0.2);
+}
+
 input[type=checkbox] {
     width: auto;
-  }
+}
 
 /* Chromium, Safari*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
--moz-appearance: textfield;
-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
+
 #result {
-  width: 100%;
-  text-align: center;
-  padding: 30px;
-  margin: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
-video{
-  max-width: 1200px;
+
+video {
+    max-width: 1200px;
 }
-code{
-  color: #0000FF;
+
+code {
+    color: #0000FF;
 }
+
 footer {
     background-color: #333;
     color: #fff;
@@ -157,40 +180,56 @@ footer {
     width: 100%;
     padding: 5px;
 }
+
 textarea {
-  height: auto;
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+    height: auto;
+    scrollbar-width: none;
+    /* For Firefox */
+    -ms-overflow-style: none;
+    /* For Internet Explorer and Edge */
 }
-textarea::-webkit-scrollbar { 
-  width: 0px; /* For Chrome, Safari, and Opera */
+
+textarea::-webkit-scrollbar {
+    width: 0px;
+    /* For Chrome, Safari, and Opera */
 }
 
 #input_img {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+}
+.swal-content {
+  word-wrap: break-word;
+  word-break: break-all;
 }
 @media only screen and (max-width: 900px) {
   body {
-      font-size: 15px; 
+      font-size: 15px;
   }
-  input, select, textarea, video, #result {
-      width: 90%; 
-      padding: 15px; 
+  input, select, textarea, video {
+    width: 95%;
+    padding: 15px;
   }
+
+  #result {
+      width: 90%;
+  }
+
   #modes {
-    justify-content: center;
+      justify-content: center;
   }
-  button{
-    justify-content: center;
+
+  button {
+      justify-content: center;
   }
 }
 
 @media only screen and (max-width: 300px) {
-  body {
-      font-size: 12px; 
-  }
-  li a {
-    font-size: 14px;
-    padding : 0px 7px
-  }
+    body {
+        font-size: 12px;
+    }
+
+    li a {
+        font-size: 14px;
+        padding: 0px 7px
+    }
 }

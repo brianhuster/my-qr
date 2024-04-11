@@ -218,35 +218,39 @@ input_img.addEventListener('change', function() {
 });
 
 function updateQrResult(result){
-    display(output);
     if (result && result!=''){ 
-        var date=new Date();
-        var hours = date.getHours().toString().padStart(2, '0');
-        var minutes = date.getMinutes().toString().padStart(2, '0');
-        var seconds = date.getSeconds().toString().padStart(2, '0');
-        var day = date.getDate().toString().padStart(2, '0');
-        var month = (date.getMonth() + 1).toString().padStart(2, '0');
-        var year = date.getFullYear();
-        var time = `${hours}:${minutes}:${seconds} ngày ${day}/${month}/${year}`;
-        result=`Kết quả quét QR : ${handle_result(result)}<br>Thời điểm phát hiện QR : ${time}`;
-        output.innerHTML = result;
-        output.scrollIntoView({ behavior: 'smooth' });
+        result=`${handle_result(result)}`;
+        console.log(result);
+        Swal.fire({
+            title: '<strong>Kết quả quét QR</strong>',
+            html: result,
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            customClass: {
+                content: 'swal-content'
+            },
+            footer: '<button id="copyButton" class="swal2-confirm swal2-styled">Copy</button>'}).then(() => {
+                document.getElementById('#copyButton').addEventListener('click', function() {
+                    var parser = new DOMParser();
+                    var resultDoc = parser.parseFromString(result, 'text/html');
+                    var codeContent = resultDoc.querySelector('code').textContent;
+                    navigator.clipboard.writeText(codeContent).then(() => {
+                        document.getElementById('copyButton').textContent = '✔️Đã copy';
+                    });
+                });
+          });
     }
     console.log(output.innerHTML);
-    if (output.innerHTML == '' || output.style.display == 'none') {
+    if (!output.innerHTML || output.innerHTML == '' || output.style.display == 'none') {
         console.log('Không tìm thấy mã QR');
     }
 }
 
-const isURL = urlString=> {
-    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
-        '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
-    return !!urlPattern.test(urlString);
-}
+const isURL = (urlString) => {
+    const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/;
+    return urlPattern.test(urlString);
+  }
 
 function handle_result(str) {
     if (str.startsWith("WIFI:") && str.endsWith(";")) {
@@ -265,8 +269,8 @@ function handle_result(str) {
         if (wifi['S'] === '' ) {
             return `<pre><code>${str}</code></pre>`;
         }
-        return `<pre><code>${str}</code></pre>
-                <p>Đây có vẻ là một mã QR wifi. Thông tin chi tiết như sau</p>
+        return `<pre><code id="QRcontent">${str}</code></pre>
+                <p>Đây có vẻ là một mã QR wifi. Thông tin cụ thể như sau</p>
                 <p>Tên đăng nhập : <code>${wifi.S}</code></p>
                 <p>Mật khẩu : <code>${wifi.P}</code></p>
                 <p>Bảo mật : ${wifi.T}</p>
