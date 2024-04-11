@@ -186,7 +186,7 @@ async function startScan() {
         display(camera_div);
     }
     catch (error) {
-        alert("Không thể mở camera");
+        alert("Không thể mở camera. Nếu bạn đã cấp quyền truy cập camera cho trang web này, hãy kiểm tra camera có đang bị phần mềm hay trang web nào khác dùng không.");
         return;
     }
     window.addEventListener('hashchange', function() {
@@ -219,8 +219,12 @@ input_img.addEventListener('change', function() {
 function updateQrResult(result){
     console.log(result);
     if (!result || result=="") result="Không tìm thấy mã QR";
-    else result=`Kết quả quét QR : ${handle_result(result)}`;
+    else{ 
+        var time=new Date().toString();
+        result=`Kết quả quét QR : ${handle_result(result)}<br>Thời điểm phát hiện QR : ${time}`;
+    }
     output.innerHTML = result;
+    console.log(output.innerHtmL)
     display(output);
     output.scrollIntoView({ behavior: 'smooth' });
 }

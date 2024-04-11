@@ -80,7 +80,7 @@ button:hover {
   cursor: pointer;
 }
 #modes .unchecked, #scanner .unchecked {
-  background-color: white ;
+  background-color: white;
   color: green;
 }
 #modes .unchecked:hover, #scanner .unchecked:hover {
