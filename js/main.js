@@ -20,6 +20,7 @@ const scan_button = document.getElementById('scan_button');
 const stop_scan = document.getElementById('stop_scan');
 const switchCamera = document.getElementById('switchCamera');
 const camera = document.getElementById('camera');
+const camera_div=document.getElementById('camera_div');
 const input_img = document.getElementById('input_img');
 const output = document.getElementById('output');
 const download = document.getElementById('download');
@@ -184,7 +185,7 @@ async function startScan() {
         await qrScanner.start();
         hide(scan_button);
         display(stop_scan);
-        display(camera);
+        display(camera_div);
     }
     catch (error) {
         alert("Không thể mở camera");
@@ -196,7 +197,7 @@ async function startScan() {
 }
 async function stopScan(){
     await qrScanner.stop();
-    hide(camera);
+    hide(camera_div);
     hide(stop_scan);
     display(scan_button);
 }
@@ -279,9 +280,6 @@ window.onload = async function() {
 window.addEventListener('hashchange', function() {
     handleHashChange();
 });
-document.getElementById('text_button').addEventListener('click', function() { changeMode('text'); });
-document.getElementById('bank_button').addEventListener('click', function() { changeMode('bank'); });
-document.getElementById('wifi_button').addEventListener('click', function() { changeMode('wifi'); });
 
 document.getElementById('scan_button').addEventListener('click', startScan);
 document.getElementById('stop_scan').addEventListener('click', stopScan);
